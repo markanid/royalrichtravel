@@ -26,8 +26,9 @@ class AboutController extends Controller
         }  
     }
 
-    public function create($id = null){
+    public function createOrEdit($id = null){
         $about = $id ? About::findOrFail($id) : new About();
+        $data['page']  = 'About';
         $data['title'] = $id ? "Edit About" : "Create About";
         $data['about'] = $about;
         return view('admin.about.create', $data);
