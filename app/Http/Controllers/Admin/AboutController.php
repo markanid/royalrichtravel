@@ -8,6 +8,7 @@ use App\Models\About;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
+use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller
 {
@@ -35,34 +36,39 @@ class AboutController extends Controller
     public function storeOrUpdate(Request $request)
     {
         $validated = $request->validate([
-            'brand'         => 'required|string|max:255',
-            'brand_image'   => 'nullable|image|mimes:jpg,png,jpeg|max:300000', 
+            'welcome'       => 'required|string|max:255',
+            'glimbse'       => 'required|string|max:255',
+            'our_journey'   => 'required|string|max:255',
+            'vision'        => 'required|string|max:255',
+            'mission'       => 'required|string|max:255',
+            'our_values'    => 'required|string|max:255',
+            'image'         => 'nullable|image|mimes:jpg,png,jpeg|max:300000', 
         ]);
 
         $isNew = empty($request->id);
-        $brand = Brand::find($request->id);
+        $about = About::find($request->id);
         
-        if ($request->hasFile('brand_image')) {
+        if ($request->hasFile('image')) {
             // Delete the old image if it exists
-            if ($brand && $brand->brand_image) {
-                Storage::disk('public')->delete('brand_logos/' . $brand->brand_image);
+            if ($about && $about->image) {
+                Storage::disk('public')->delete('about_logos/' . $about->image);
             }
-            $file = $request->file('brand_image');
+            $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName(); 
-            $file->storeAs('brand_logos', $filename, 'public'); 
-            $validated['brand_image'] = $filename; 
+            $file->storeAs('about_logos', $filename, 'public'); 
+            $validated['image'] = $filename; 
         }    
-        $brand = Brand::updateOrCreate(
+        $about = About::updateOrCreate(
             ['id' => $request->id ?? null], 
             $validated
         );
     
-        if ($brand) {
+        if ($about) {
             return $isNew
-                ? redirect()->route('brands.index')->with('success', 'Brand created successfully.')
-                : redirect()->route('brands.show', $brand->id)->with('success', 'Brand details updated successfully.');
+                ? redirect()->route('about.index')->with('success', 'About created successfully.')
+                : redirect()->route('about.show', $about->id)->with('success', 'About details updated successfully.');
         } else {
-            return redirect()->back()->with('error', 'Failed to update brand details.');
+            return redirect()->back()->with('error', 'Failed to update about details.');
         }
     }
 

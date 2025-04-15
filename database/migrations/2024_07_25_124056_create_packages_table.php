@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('missions', function (Blueprint $table) {
+        Schema::create('packages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('about_id')->default(1);
-            $table->foreign('about_id')->references('id')->on('abouts')->onDelete('cascade');
-            $table->string('title')->nullable();
+            $table->string('name')->nullable();
             $table->string('description',500)->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
-            $table->boolean('status')->default(1); 
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('missions');
+        Schema::dropIfExists('packages');
     }
 };

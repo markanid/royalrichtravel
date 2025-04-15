@@ -25,7 +25,7 @@
         <h3 class="card-title"><i class="fas fa-users"></i> Create {{$page}}</h3>
         <a class="btn btn-dark btn-sm btn-flat float-right" href="{{route('about.index')}}"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
     </div>
-    <form id="addUser" method="post" action="{{ route('about.save') }}" enctype="multipart/form-data">
+    <form id="addUser" method="post" action="{{ route('about.update') }}" enctype="multipart/form-data">
         @csrf
         <div class="card-body">
             <div class="row">
