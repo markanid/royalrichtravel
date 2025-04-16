@@ -26,7 +26,7 @@
         <div class="ml-auto"> 
             <a href="{{ route('banner.index') }}" class="btn btn-sm btn-dark"> <i class="fa fa-arrow-circle-left"></i> Back</a> &nbsp;
             <a href="{{ route('banner.edit', ['id' => $banners->id]) }}" class="btn btn-sm btn-info"> <i class="fa fa-pencil"></i> Edit</a> &nbsp;
-            <a href="{{ route('banner.delete', ['id' => $banners->id]) }}" class="btn btn-sm btn-danger "><i class="fa fa-trash"></i> Delete</a>
+            <a href="#" class="btn btn-danger btn-sm btn-flat delete-btn" data-url="{{ route('banner.delete', ['id' => $banners->id]) }}"><i class="fas fa-trash"></i> Delete</a>
         </div> 
     </div>
     
@@ -51,4 +51,55 @@
             </div>
         </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            let deleteUrl = this.getAttribute('data-url');
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This action cannot be undone!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = deleteUrl;
+                }
+            });
+        });
+    });
+});
+</script>
+<script>
+    $(document).ready(function(){
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        
+        // Check for the flash message and display the SweetAlert2 popup
+        @if(session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('success') }}'
+            });
+        @endif
+        @if(session('info'))
+            Toast.fire({
+                icon: 'info',
+                title: '{{ session('info') }}'
+            });
+        @endif
+    });
+</script>
 @endsection

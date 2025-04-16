@@ -88,4 +88,14 @@ class BannerController extends Controller
         $data['page']       = "Banners";
         return view('admin.banner.view',$data);      
     }
+    public function destroy($id=null)
+    {
+        // Find the model instance by ID
+        $banner = Banner::findOrFail($id);
+        if (is_string($banner->banner) && !empty($banner->banner) && Storage::disk('public')->exists('banners/' . $banner->banner)) {
+            Storage::disk('public')->delete('banners/' . $banner->banner);
+        }
+        $banner->delete();
+        return redirect()->route('banner.index')->with('success', 'Record deleted successfully');
+    }
 }
