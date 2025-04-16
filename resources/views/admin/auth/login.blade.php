@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Timesheet | Log in</title>
+  <title>Royal Rich Travels | Log in</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -31,7 +31,7 @@
         @endif
       <p class="login-box-msg">Sign in to start your session</p>
       
-      <form action="{{route('postLogin')}}" method="post">
+      <form action="{{route('authenticate')}}" method="post">
         @csrf
         <div class="input-group mb-1">
           <input type="email" name="email" class="form-control" placeholder="Email">
@@ -48,7 +48,7 @@
           <input type="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+              <span class="fas fa-eye" id="eyeIcon"></span>
             </div>
           </div>
         </div>
@@ -83,5 +83,22 @@
 <script src="{{asset('admin-assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('admin-assets/dist/js/adminlte.min.js')}}"></script>
+<script>
+  document.getElementById('eyeIcon').addEventListener('click', function () {
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+    
+    // Toggle the password field type between 'password' and 'text'
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      eyeIcon.classList.remove('fa-eye');
+      eyeIcon.classList.add('fa-eye-slash');
+    } else {
+      passwordInput.type = 'password';
+      eyeIcon.classList.remove('fa-eye-slash');
+      eyeIcon.classList.add('fa-eye');
+    }
+  });
+</script>
 </body>
 </html>

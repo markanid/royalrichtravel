@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\{AboutController,AuthController,BlogController,ClientsController,ContactController,EmployeeController,PortfolioController,ProfileController,ServicesController,TestimonialController,UserController};
+use App\Http\Controllers\Admin\{BannerController, LoginController};
 use App\Http\Controllers\UserPageController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,41 +14,34 @@ Route::get('/packagedetails/{id}',[UserPageController::class,'packagedetails'])-
 Route::get('contactus',[UserPageController::class,'contact'])->name('users.contactus'); 
 Route::post('/send-email', [UserPageController::class, 'sendEmail'])->name('send.email');
 
+Route::group(["prefix"=> "admin"], function () {
 // Admin routes
-Route::get('/admin/login', [AuthController::class, 'getLogin'])->name('getLogin');
-Route::post('/admin/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');
-
+    Route::group(['middleware' => 'guest'], function () {
+        Route::get('/login', [LoginController::class, 'index'])->name('login');
+        Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('authenticate');
+        Route::get('/registration', [LoginController::class, 'registration'])->name('registration');
+        Route::post('/register-process', [LoginController::class, 'registerProcess'])->name('registerProcess');
+    });
 // Authenticated routes
-// Route::middleware(['auth'])->group(function () {
-    // Dashboard and Profile routes
-    Route::get('/admin/dashboard', [ProfileController::class, 'dashboard'])->name('dashboard');
-    Route::get('/admin/logout', [ProfileController::class, 'logout'])->name('logout');
+    Route::group(['middleware' => 'auth'], function () {
+        // Dashboard and Profile routes
+        Route::get('/dashboard', [LoginController::class, 'dashboard'])->name('dashboard');
+        Route::get('/change-password', [LoginController::class, 'showChangePasswordForm'])->name('changePasswordForm');
+        Route::post('/change-password', [LoginController::class, 'changePassword'])->name('changePassword');
+        Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+        // Resourceful routes for Admin sections
+        $resources = [
+            'banner'        => BannerController::class,
+        ];
 
-    Route::post('import', [EmployeeController::class, 'import'])->name('import');
-    Route::get('export', [EmployeeController::class, 'export'])->name('export');
-
-    // Resourceful routes for Admin sections
-    $resources = [
-        'users' => UserController::class,
-        'about' => AboutController::class,
-        'clients' => ClientsController::class,
-        'testimonial' => TestimonialController::class,
-        'services' => ServicesController::class,
-        'portfolio' => PortfolioController::class,
-        'blog' => BlogController::class,
-        'contact' => ContactController::class,
-        'employee' => EmployeeController::class,
-    ];
-
-    foreach ($resources as $resource => $controller) {
-        Route::prefix("admin/{$resource}")->name("{$resource}.")->group(function () use ($controller, $resource) {
-            Route::get('/', [$controller, 'index'])->name('index');
-            Route::get('/create', [$controller, 'createOrEdit'])->name('create');
-            Route::get('/edit/{id}', [$controller, 'createOrEdit'])->name('edit');
-            Route::post('/{id}', [$controller, 'show'])->name('show');
-            Route::post('/update', [$controller, 'storeOrUpdate'])->name('update');
-            Route::delete('/delete/{id}', [$controller, 'destroy'])->name('delete');
-        });
-    }
-// });
+        foreach ($resources as $resource => $controller) {
+            Route::get("$resource", [$controller, 'index'])->name("$resource.index");
+            Route::get("$resource/create", [$controller, 'createOrEdit'])->name("$resource.create");
+            Route::get("$resource/{id}", [$controller, 'show'])->name("$resource.show");
+            Route::get("$resource/edit/{id}", [$controller, 'createOrEdit'])->name("$resource.edit");
+            Route::post("$resource/update", [$controller, 'storeOrUpdate'])->name("$resource.update");
+            Route::get("$resource/delete/{id}", [$controller, 'destroy'])->name("$resource.delete");
+        }
+    });
+});
