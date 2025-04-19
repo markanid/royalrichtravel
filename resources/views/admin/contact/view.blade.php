@@ -10,7 +10,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('users.index')}}">Employees</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('contact.index')}}">{{$page}}</a></li>
                     <li class="breadcrumb-item active">{{$title}}</li>
                 </ol>
             </div>
@@ -21,65 +21,56 @@
 
 @section('body')
 <div class="card card-primary card-outline">
-    <div class="card-header">
-        <h3 class="card-title"><i class="fas fa-users"></i> Employee Details</h3>
-        <div class="card-tools">
-            <a class="btn btn-info btn-sm btn-flat" href="{{route('users.edit', $user->id)}}"><i class="fas fa-edit"></i> Edit</a>
-            <a class="btn btn-dark btn-sm btn-flat" href="{{route('users.index')}}"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
-        </div>
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="card-title"><i class="fas fa-users"></i> View {{$page}}</h3>  
+        <div class="ml-auto"> 
+            <!--<a href="{{ route('contact.create') }}" class="btn btn-sm btn-primary"> <i class="fas fa-plus-circle"></i> Create</a> &nbsp;-->
+            <a href="{{ route('contact.edit', ['id' => $contact->id]) }}" class="btn btn-sm btn-info"> <i class="fas fa-pencil-alt"></i> Edit</a> &nbsp;
+            <a href="#" class="btn btn-danger btn-sm btn-flat delete-btn" data-url="{{ route('contact.delete', ['id' => $contact->id]) }}"><i class="fas fa-trash"></i> Delete</a>
+        </div> 
     </div>
     <div class="card-body">
-        
-        <div class="table-responsive col-md-6">
-            <table class="table table-bordered" style="margin-bottom: 10px;">
-                <tbody>
-                    <tr>
-                        <td style="background-color:#096ca5; color:#fff;">Employee Name</td>
-                        <td><b style="color:#096ca5;">{{ $user->name }}</b>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-       </div>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <td rowspan="3">
-                            <div>
-                                @if(!empty($user) && !empty($user->employee_photo))
-                                    <p><img src="{{asset('uploads/employees/'.$user->employee_photo)}}" alt="Employee Photo" style="width: 150px; height: 150px;"></p>
-                                @else
-                                    <p><img src="{{asset('uploads/employees/avatar.png')}}" alt="Employee Photo" style="width: 150px; height: 150px;"></p>
-                                @endif 
-                            </div>
+                        <td>
+                            <span>Phone numbers :</span>
+                            @foreach (json_decode($contact->phones ?? '[]') as $phone)
+                                <label class="d-block">{{ $phone }}</label>
+                            @endforeach
                         </td>
                         <td>
-                            <span>Employee ID :</span>
-                            <label>{{ $user->employee_id }}</label>
+                            <span>Address :</span>
+                            @foreach (json_decode($contact->addresses ?? '[]') as $address)
+                                <label class="d-block">{{ $address }}</label>
+                            @endforeach
                         </td>
                         <td>
-                            <span>Email ID :</span>
-                            <label>{{ $user->email }}</label>
+                            <span>Location Map :</span>
+                            <label><iframe src="{{ $contact->locations }}"></iframe></label>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span>Designation :</span>
-                            <label>{{ $user->designation }}</label>
+                            <span>Email ID :</span>
+                            <label>{{ $contact->email }}</label>
                         </td>
-                        <td colspan="2">
-                            <span>User Type :</span>
-                            <?php
-                                if($user->is_admin == 1){
-                                    $user_type = 'Admin';
-                                } elseif($user->is_admin == 2){
-                                    $user_type = 'Manager';
-                                } else{
-                                    $user_type = 'Employee';
-                                } 
-                            ?>
-                            <label>{{ $user_type }}</label>
+                        <td>
+                            <span>Facebook :</span>
+                            <label>{{ $contact->facebook }}</label>
+                        </td>
+                        <td>
+                            <span>Instagram :</span>
+                            <label>{{ $contact->instagram }}</label>
+                        </td>
+                        <td>
+                            <span>Youtube :</span>
+                            <label>{{ $contact->youtube }}</label>
+                        </td>
+                        <td>
+                            <span>X [Twiter] :</span>
+                            <label>{{ $contact->x }}</label>
                         </td>
                     </tr>
                 </tbody>
@@ -89,4 +80,55 @@
     </div>
    
 </div>
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            let deleteUrl = this.getAttribute('data-url');
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This action cannot be undone!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = deleteUrl;
+                }
+            });
+        });
+    });
+});
+</script>
+<script>
+    $(document).ready(function(){
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        
+        // Check for the flash message and display the SweetAlert2 popup
+        @if(session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('success') }}'
+            });
+        @endif
+        @if(session('info'))
+            Toast.fire({
+                icon: 'info',
+                title: '{{ session('info') }}'
+            });
+        @endif
+    });
+</script>
 @endsection

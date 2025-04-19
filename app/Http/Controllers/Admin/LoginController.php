@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Admin\Category;
 use App\Models\Admin\Project;
 use App\Models\Admin\Brand;
+use App\Models\Admin\Feature;
+use App\Models\Admin\Package;
 use App\Models\Admin\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,11 +46,11 @@ class LoginController extends Controller
     }
 
     public function dashboard(){
-        $categories = Category::count();
-        $projects   = Project::count();
-        $brands     = Brand::count();
+        $features   = Feature::count();
+        $packages   = Package::count();
         $services   = Service::count();
-        return view('admin.dashboard', compact('categories','projects','brands','services'));
+        $title      = 'Dashboard';
+        return view('admin.dashboard', compact('features','packages','services','title'));
     }
 
     public function registerProcess(Request $request){

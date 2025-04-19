@@ -26,7 +26,7 @@
             <div class="card card-primary card-outline">
                 <div class="card-header">
                     <h3 class="card-title"><i class="fas fa-users"></i> {{$title}}</h3>
-                    <a class="btn btn-primary btn-sm btn-flat float-right" href="{{route('services.add')}}"><i class="fas fa-plus-circle"></i> Create</a>
+                    <a class="btn btn-primary btn-sm btn-flat float-right" href="{{route('services.create')}}"><i class="fas fa-plus-circle"></i> Create</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -35,28 +35,22 @@
                             <tr>
                                 <th>SL No.</th>
                                 <th>Name</th>
-                                <th>Description</th>
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $i=1;?>
-                            @foreach($about as $row)
+                            @foreach($services as $row)
                                 <tr>
                                     <td>{{$i++;}}</td>
-                                    <td>{{$row->name}}</td>
-                                    <td>{{$row->description}}</td>
+                                    <td><a href={{ route('services.show', $row->id) }}>{{ $row->name }}</a></td>
                                     <td> 
-                                         <img src="{{ $row->image ? asset('uploads/services/' . $row->image) : asset('uploads/avatar.png') }}" width="100" height="70" alt="Description Image">
+                                         <img src="{{ $row->image ? asset('storage/services/' . $row->image) : asset('uploads/avatar.png') }}" width="100" height="70" alt="Description Image">
                                     </td>
                                     <td>
-                                        <a class="btn btn-info btn-sm btn-flat" href="{{route('services.edit', $row->id)}}">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-danger btn-sm delete-btn btn-flat" data-id="{{$row->id}}" data-toggle="modal" data-target="#modal-sm">
-                                             <i class="fas fa-trash-alt"></i>
-                                        </button>
+                                        <a class="btn btn-info btn-sm btn-flat" href="{{route('services.edit', $row->id)}}"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="#" class="btn btn-danger btn-sm btn-flat delete-btn" data-url="{{ route('services.delete', ['id' => $row->id]) }}"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -67,29 +61,32 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal-sm">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Delete !</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to Delete ?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger" id="delete_btn">Yes</button>
-            </div>
-        </div>
-    <!-- /.modal-content -->
-    </div>
-<!-- /.modal-dialog -->
-</div>
 @endsection
 @section('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                let deleteUrl = this.getAttribute('data-url');
+    
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This action cannot be undone!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = deleteUrl;
+                    }
+                });
+            });
+        });
+    });
+    </script>
 <script>
     $(document).ready(function(){
         var Toast = Swal.mixin({
@@ -102,38 +99,6 @@
         //     "responsive": true, "lengthChange": false, "autoWidth": false,
         //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         // }).buttons().container().appendTo('#user_table_wrapper .col-md-6:eq(0)');
-        
-        $('#user_table').on('click', '.delete-btn', function() {
-            var id = $(this).data('id');
-            $('#delete_btn').data('id', id);
-        });
-
-        $("#delete_btn").on('click', function() {
-            var id = $(this).data('id');
-        
-            $.ajax({
-                url: 'services/delete/' + id,
-                type: 'DELETE',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    $('#modal-sm').modal('hide');
-                    $('#user_table').DataTable().row($(`button[data-id="${id}"]`).closest('tr')).remove().draw();
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Services has been deleted successfully.'
-                    });
-                },
-                error: function(xhr, status, error) {
-                    // Handle errors
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'An error occurred while trying to delete the Employee.'
-                    });
-                }
-            });
-        });
         // Check for the flash message and display the SweetAlert2 popup
         @if(session('success'))
             Toast.fire({

@@ -10,7 +10,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('banner.index')}}">Banners</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('banner.index')}}">{{$page}}</a></li>
                     <li class="breadcrumb-item active">{{$title}}</li>
                 </ol>
             </div>
@@ -24,9 +24,9 @@
     <div class="card-header d-flex justify-content-between align-items-center">
         <h3 class="card-title"><i class="fas fa-users"></i> View {{$page}}</h3>  
         <div class="ml-auto"> 
+            <a href="{{ route('banner.create') }}" class="btn btn-sm btn-primary"> <i class="fas fa-plus-circle"></i> Create</a> &nbsp;
+            <a href="{{ route('banner.edit', ['id' => $banners->id]) }}" class="btn btn-sm btn-info"> <i class="fas fa-pencil-alt"></i> Edit</a> &nbsp;
             <a href="{{ route('banner.index') }}" class="btn btn-sm btn-dark"> <i class="fa fa-arrow-circle-left"></i> Back</a> &nbsp;
-            <a href="{{ route('banner.edit', ['id' => $banners->id]) }}" class="btn btn-sm btn-info"> <i class="fa fa-pencil"></i> Edit</a> &nbsp;
-            <a href="#" class="btn btn-danger btn-sm btn-flat delete-btn" data-url="{{ route('banner.delete', ['id' => $banners->id]) }}"><i class="fas fa-trash"></i> Delete</a>
         </div> 
     </div>
     

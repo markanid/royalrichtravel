@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Banner extends Model
 {
-    protected $fillable = ['banner'];
+    protected $fillable = ['banner','banner_label'];
     protected $casts = [
         'banner' => 'array',
     ];

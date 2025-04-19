@@ -50,7 +50,7 @@
             <!-- start navigation -->
             <nav class="navbar navbar-expand-lg header-transparent bg-transparent border-bottom border-color-transparent-white-light disable-fixed">
                 <div class="container-fluid">
-                    <div class="col-auto col-lg-3 me-auto">
+                    <div class="col-auto col-lg-4 me-auto">
                         <a class="navbar-brand" href="demo-travel-agency.html">
                             <img src="images/logo/logo.png" data-at2x="{{asset('images/logo/logo.png')}}" alt="Royal Rich Air Travels" class="default-logo">
                             <img src="images/logo/logo.png" data-at2x="{{asset('images/logo/logo.png')}}" alt="Royal Rich Air Travels" class="alt-logo">

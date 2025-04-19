@@ -38,7 +38,7 @@ h1 {
     font-size: 19px;
 }
 header .navbar-brand img {
-    max-height: 34px;
+    max-height: 45px;
 }
 .navbar .navbar-nav .dropdown.dropdown-with-icon-style02 .dropdown-menu li a {
     border-bottom: 1px solid var(--extra-medium-gray);

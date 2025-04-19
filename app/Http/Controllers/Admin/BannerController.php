@@ -12,14 +12,14 @@ use Illuminate\Support\Facades\Log;
 
 class BannerController extends Controller
 {
-    public function index($id = null)
+    public function index()
     {
-        $banners = Banner::latest('created_at')->first();
-        if ($banners) {
+        $banners = Banner::oldest('created_at')->get();
+        if ($banners!=NULL && !$banners->isEmpty()) {
             $data['banners']    = $banners;
-            $data['title']      = "Banners View";
+            $data['title']      = "Banners List";
             $data['page']       = "Banners";
-            return view('admin.banner.view',$data);
+            return view('admin.banner.index',$data);
         } else {
             return redirect()->route('banner.create');
         }       
@@ -37,7 +37,7 @@ class BannerController extends Controller
     public function storeOrUpdate(Request $request)
     {
         $validated = $request->validate([
-            'banner.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120'
+            'banner.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:30720'
         ]);
 
         $isNew  = empty($request->id);
@@ -66,6 +66,19 @@ class BannerController extends Controller
             // If no new images uploaded, keep the old ones
             $imagePaths = $existingImages;
         }
+        if ($isNew) {
+            $lastBanner = Banner::latest('id')->first();
+            if ($lastBanner && preg_match('/Banner_(\d+)/', $lastBanner->banner_label, $matches)) {
+                $nextNumber = (int)$matches[1] + 1;
+            } else {
+                $nextNumber = 1;
+            }
+            $bannerLabel = 'Banner_' . $nextNumber;
+        } else {
+            $bannerLabel = $banner->banner_label; // retain existing
+        }
+
+        $validated['banner_label'] = $bannerLabel;
         $validated['banner'] = $imagePaths;
         $banner = Banner::updateOrCreate(
             ['id' => $request->id ?? null], 
@@ -80,9 +93,9 @@ class BannerController extends Controller
         }
     }
 
-    public function show($id = null)
+    public function show($id)
     {
-        $banners = Banner::latest('created_at')->first();
+        $banners = Banner::findOrFail($id);
         $data['banners']    = $banners;
         $data['title']      = "Banners View";
         $data['page']       = "Banners";
@@ -92,8 +105,11 @@ class BannerController extends Controller
     {
         // Find the model instance by ID
         $banner = Banner::findOrFail($id);
-        if (is_string($banner->banner) && !empty($banner->banner) && Storage::disk('public')->exists('banners/' . $banner->banner)) {
-            Storage::disk('public')->delete('banners/' . $banner->banner);
+        $existingImages = $banner?->banner ?? [];
+        foreach ($existingImages as $img) {
+            if (Storage::disk('public')->exists('banners/' . $img)) {
+                Storage::disk('public')->delete('banners/' . $img);
+            }
         }
         $banner->delete();
         return redirect()->route('banner.index')->with('success', 'Record deleted successfully');

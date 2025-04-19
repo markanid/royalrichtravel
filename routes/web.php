@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\{BannerController, LoginController};
+use App\Http\Controllers\Admin\{AboutController, BannerController, ContactController, FeatureController, LoginController, MetaDataController, PackageController, ServiceController};
 use App\Http\Controllers\UserPageController;
 use Illuminate\Support\Facades\Route;
-
 
 Route::get('/',[UserPageController::class,'home'])->name('users.home'); 
 Route::get('aboutus',[UserPageController::class,'about'])->name('users.aboutus'); 
@@ -17,7 +16,7 @@ Route::post('/send-email', [UserPageController::class, 'sendEmail'])->name('send
 Route::group(["prefix"=> "admin"], function () {
 // Admin routes
     Route::group(['middleware' => 'guest'], function () {
-        Route::get('/login', [LoginController::class, 'index'])->name('login');
+        Route::get('/', [LoginController::class, 'index'])->name('login');
         Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('authenticate');
         Route::get('/registration', [LoginController::class, 'registration'])->name('registration');
         Route::post('/register-process', [LoginController::class, 'registerProcess'])->name('registerProcess');
@@ -32,7 +31,13 @@ Route::group(["prefix"=> "admin"], function () {
 
         // Resourceful routes for Admin sections
         $resources = [
-            'banner'        => BannerController::class,
+            'banner'    => BannerController::class,
+            'meta_data' => MetaDataController::class,
+            'about'     => AboutController::class,
+            'services'  => ServiceController::class,
+            'packages'  => PackageController::class,
+            'features'  => FeatureController::class,
+            'contact'   => ContactController::class,
         ];
 
         foreach ($resources as $resource => $controller) {

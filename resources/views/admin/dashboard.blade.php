@@ -9,7 +9,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -24,13 +24,13 @@
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            @if(auth()->user()->is_admin == 1)
+            @if(auth()->user()?->role === 'admin')
                 <div class="col-12 col-sm-6 col-md-3">
                     <!-- small box -->
                     <div class="info-box">
                         <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-users"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Employees</span>
+                            <span class="info-box-text">Features</span>
                             <span class="info-box-number">
                                 
                             </span>
@@ -43,7 +43,7 @@
                     <div class="info-box">
                         <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-handshake"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Clients</span>
+                            <span class="info-box-text">Packages</span>
                             <span class="info-box-number">
                                 
                             </span>
@@ -56,7 +56,7 @@
                     <div class="info-box">
                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-project-diagram"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Projects</span>
+                            <span class="info-box-text">Services</span>
                             <span class="info-box-number">
                                 
                             </span>

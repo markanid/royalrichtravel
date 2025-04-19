@@ -10,7 +10,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('users.index')}}">Services</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('services.index')}}">Services</a></li>
                     <li class="breadcrumb-item active">{{$title}}</li>
                 </ol>
             </div>
@@ -25,15 +25,37 @@
         <h3 class="card-title"><i class="fas fa-users"></i> Create {{$page}}</h3>
         <a class="btn btn-dark btn-sm btn-flat float-right" href="{{route('services.index')}}"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
     </div>
-    <form id="addUser" method="post" action="{{ route('services.save') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('services.update') }}" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="id" value="{{ $service->id ?? '' }}">
         <div class="card-body">
             <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="customFile">Image</label>
+                        <div id="photo_preview2" class="mt-2">
+                            @if(!empty($service->image))
+                                <img src="{{ asset('storage/services/'.$service->image) }}" style="width: 150px; height: 150px; margin: 5px;">
+                            @else
+                                <img src="{{ asset('uploads/avatar.png') }}" style="width: 150px; height: 150px;">
+                            @endif
+                        </div><br>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile2" tabindex="1" name="image">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                            @if ($errors->has('image'))
+                            <span class="text-danger">{{ $errors->first('image') }}</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" name="name" tabindex="2" class="form-control">
+                        <input type="text" name="name" tabindex="2" class="form-control" value="{{ !empty($service->name) ? $service->name : '' }}">
                         @if ($errors->has('name'))
                           <span class="text-danger">{{ $errors->first('name') }}</span>
                         @endif
@@ -43,38 +65,17 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Description</label>
-                        <input type="text" name="description" tabindex="2" class="form-control">
+                        <textarea name="description" id="description" tabindex="3" class="form-control">{{ !empty($service->description) ? $service->description : '' }}</textarea>
                         @if ($errors->has('description'))
                           <span class="text-danger">{{ $errors->first('description') }}</span>
                         @endif
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                	<div class="form-group">
-    					<label for="customFile">Image(150x150)</label>
-    					<div id="photo_preview2" class="mt-2">
-                            <img src="{{asset('uploads/avatar.png')}}" alt="Employee Photo" style="width: 150px; height: 150px;">
-                        </div><br>
-    					<div class="input-group">
-    						<div class="custom-file">
-    							<input type="file" class="custom-file-input" id="customFile2" tabindex="7" name="image">
-    							<label class="custom-file-label" for="customFile">Choose file</label>
-    						</div>
-    						
-    						@if ($errors->has('image'))
-                              <span class="text-danger">{{ $errors->first('image') }}</span>
-                            @endif
-                            
-    					</div>
-    					
-    				</div>
-               </div>
-
             </div>
         </div>
         <div class="card-footer" align="center">
-            <button type="submit" id="submitBtn" tabindex="8" class="btn btn-primary  btn-flat"><i class="fas fa-save"></i> Save</button>
+            <button type="submit" id="submitBtn" tabindex="4" class="btn btn-primary  btn-flat"><i class="fas fa-save"></i> Save</button>
             <button type="reset" value="Reset" id="resetbtn" tabindex="p" class="btn btn-secondary  btn-flat"><i class="fas fa-undo-alt"></i> Reset</button>
             
         </div>
@@ -87,63 +88,42 @@
 $(function () {
     bsCustomFileInput.init();
      $('#customFile2').on('change', function() {
-        var fileName = $(this).val().split('\\').pop();
+        let previewContainer = $('#photo_preview2');
+        previewContainer.html('');
+
+        Array.from(this.files).forEach(file => {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                previewContainer.append(
+                    `<img src="${e.target.result}" style="width: 150px; height: 150px; margin: 5px;">`
+                );
+            }
+            reader.readAsDataURL(file);
+        });
+
+        let fileName = Array.from(this.files).map(f => f.name).join(', ');
         $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
-        
-        var file = this.files[0];
-        if (file) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#photo_preview2').html('<img src="' + e.target.result + '" alt="Employee Photo" style="width: 150px; height: 150px;">');
-        }
-        reader.readAsDataURL(file);
-    }
     });
+    
     $.validator.setDefaults({
         submitHandler: function (form) {
             $('#submitBtn').prop('disabled', true); // Disable the submit button
             form.submit();
         }
     });
-  
-    $('#addUser').validate({
-        rules: {
-            id: {
-                required: true,
-            },
-            name: {
-                required: true,
-            },
-            designation: {
-                required: true,
-            },
-            
-        },
-        messages: {
-            name: {
-                required: "Please enter a Description",
-            },
-            designation: {
-                required: "Please enter a designation",
-            },
-            email: {
-                required: "Please enter a Email",
-                email: "Please enter a valid email address"
-            },
-            password: {
-                required: "Please provide a password",
-                minlength: "Your password must be at least 6 characters long"
-            },
-        },
+
+    $('#bannerForm').validate({
+        rules: {},
+        messages: {},
         errorElement: 'span',
         errorPlacement: function (error, element) {
             error.addClass('invalid-feedback');
             element.closest('.form-group').append(error);
         },
-        highlight: function (element, errorClass, validClass) {
+        highlight: function (element) {
             $(element).addClass('is-invalid');
         },
-        unhighlight: function (element, errorClass, validClass) {
+        unhighlight: function (element) {
             $(element).removeClass('is-invalid');
         }
     });

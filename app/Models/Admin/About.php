@@ -7,10 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class About extends Model
 {
-    protected $fillable = ['aboutus','vision','services','focus','projects','satisfaction','image1','image2'];
-    public function missions()
-    {
-        return $this->hasMany(Mission::class,'about_id');
-    }
+    protected $fillable = ['welcome','glimbse','our_journey','vision','mission','our_values','image'];
     use HasFactory;
 }

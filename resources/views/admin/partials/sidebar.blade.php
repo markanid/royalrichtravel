@@ -36,16 +36,57 @@
                 </p>
               </a>
             </li>
-            @if(auth()->user()->is_admin == 1)
-            
-           <!--  <li class="nav-item">
-              <a href="{{route('about.index')}}" class="nav-link {{$current_route=='about.index'?'active':''}}">
+            @if(auth()->user()?->role === 'admin')
+            <li class="nav-item">
+              <a href="{{route('banner.index')}}" class="nav-link {{$current_route=='banner.index'?'active':''}}">
               <i class="nav-icon fas fa-users"></i>
-                <p>About</p>
+                <p>Banners</p>
               </a>
             </li>
 
             <li class="nav-item">
+              <a href="{{route('meta_data.index')}}" class="nav-link {{$current_route=='meta_data.index'?'active':''}}">
+              <i class="nav-icon fas fa-users"></i>
+                <p>Meta Data</p>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+               <a href="{{route('about.index')}}" class="nav-link {{$current_route=='about.index'?'active':''}}">
+               <i class="nav-icon fas fa-users"></i>
+                 <p>About</p>
+               </a>
+             </li>
+
+             <li class="nav-item">
+               <a href="{{route('services.index')}}" class="nav-link {{$current_route=='services.index'?'active':''}}">
+               <i class="nav-icon fas fa-users"></i>
+                 <p>Services</p>
+               </a>
+             </li>
+
+             <li class="nav-item">
+               <a href="{{route('packages.index')}}" class="nav-link {{$current_route=='packages.index'?'active':''}}">
+               <i class="nav-icon fas fa-users"></i>
+                 <p>Packages</p>
+               </a>
+             </li>
+             <li class="nav-item">
+               <a href="{{route('features.index')}}" class="nav-link {{$current_route=='features.index'?'active':''}}">
+               <i class="nav-icon fas fa-users"></i>
+                 <p>Features</p>
+               </a>
+             </li>
+             <li class="nav-item">
+               <a href="{{route('contact.index')}}" class="nav-link {{$current_route=='contact.index'?'active':''}}">
+               <i class="nav-icon fas fa-users"></i>
+                 <p>Contact</p>
+               </a>
+             </li>
+           @endif
+             
+          @if(auth()->user()?->role === 'staff')
+            <!--  <li class="nav-item">
               <a href="{{route('clients.index')}}" class="nav-link {{$current_route=='clients.index'?'active':''}}">
               <i class="nav-icon fas fa-users"></i>
                 <p>Client</p>
@@ -80,16 +121,14 @@
               <i class="nav-icon fas fa-users"></i>
                 <p>Contact</p>
               </a>
-            </li> -->
+            </li> 
 
              <li class="nav-item">
               <a href="{{route('employee.index')}}" class="nav-link {{$current_route=='employee.index'?'active':''}}">
               <i class="nav-icon fas fa-users"></i>
                 <p>employee</p>
               </a>
-            </li>
-            
-          
+            </li>-->
           @endif
         </ul>
       </nav>

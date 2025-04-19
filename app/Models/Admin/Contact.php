@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    protected $fillable = ['address','phone1','phone2','email','time','location','image'];
+    protected $fillable = ['addresses','phones','locations','email','facebook','instagram','youtube','x'];
+    protected $casts = [
+        'addresses' => 'array',
+        'phones' => 'array',
+    ];
     use HasFactory;
 }

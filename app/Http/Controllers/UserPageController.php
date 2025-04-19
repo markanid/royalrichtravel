@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\Banner;
 use Illuminate\Http\Request;
 
 class UserPageController extends Controller
 {
     public function home() {
-        
-        return view("users.home");
+        $banners            = Banner::oldest('created_at')->get();
+        $data['banners']    = $banners;
+        return view("users.home", $data);
     }
 
     public function about() {

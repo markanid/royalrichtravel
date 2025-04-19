@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-md-6">
                 	<div class="form-group">
-    					<label for="customFile">Image(150x150)</label>
+    					<label for="customFile">Image(1920x1100)</label>
     					<div id="photo_preview2" class="mt-2">
                             @if (!empty($banner->banner) && is_array($banner->banner))
                                 @foreach ($banner->banner as $img)

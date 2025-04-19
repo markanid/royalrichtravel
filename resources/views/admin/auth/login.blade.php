@@ -45,7 +45,7 @@
             <div class="text-danger">{{$message}}</div> 
         @enderror
         <div class="input-group mb-1">
-          <input type="password" name="password" class="form-control" placeholder="Password">
+          <input type="password" id="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-eye" id="eyeIcon"></span>

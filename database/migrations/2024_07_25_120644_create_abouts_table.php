@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('glimbse',500)->nullable();
             $table->string('our_journey',500)->nullable();
             $table->string('vision',500)->nullable();
-            $table->integer('mission')->nullable();
-            $table->integer('our_values')->nullable();
+            $table->string('mission',500)->nullable();
+            $table->string('our_values',500)->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });
