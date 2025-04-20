@@ -34,15 +34,22 @@
                     <div class="row h-45px align-items-center m-0">
                         <div class="col-xl-4 position-relative text-center elements-social social-text-style-08 ">
                             <ul class="small-icon dark">
-                            <li><a class="facebook" href="https://www.facebook.com/profile.php?id=100077368840528" target="_blank"><i class="fa-brands fa-facebook-f"></i></a></li>
-                            <li><a class="dribbble" href="https://www.youtube.com/@royalrichairtravels2007" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
-                            <li><a class="instagram" href="https://www.instagram.com/royal_rich_airtravel/profilecard/?igsh=Zm05dTJ1cTkyNHZq" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
-                            <li><a class="twitter" href="http://www.twitter.com" target="_blank"><i class="fa-brands fa-x-twitter"></i></a></li> 
+                            <li><a class="facebook" href="{{ $contact->facebook }}" target="_blank"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            <li><a class="dribbble" href="{{ $contact->youtube }}" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
+                            <li><a class="instagram" href="{{ $contact->instagram }}" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+                            <li><a class="twitter" href="{{ $contact->x }}" target="_blank"><i class="fa-brands fa-x-twitter"></i></a></li> 
                         </ul> 
                         </div>
                         <div class="col-xl-8 text-end d-none d-lg-flex">
-                            <a href="tel:02228899900" class="widget fs-15 text-dark-gray text-dark-gray-hover"><i class="feather icon-feather-phone-call text-base-color"></i> 0491 2504010</a>
-                            <div class="widget fs-15 ms-30px text-dark-gray d-none d-xl-inline-block"><i class="feather icon-feather-mail text-base-color"></i> info@royalrichtravel.in</div> 
+                            <a href="tel:02228899900" class="widget fs-15 text-dark-gray text-dark-gray-hover">
+                                @php
+                                    $phones = is_array($contact->phones) ? $contact->phones : json_decode($contact->phones ?? '[]', true);
+                                @endphp
+                                <i class="feather icon-feather-phone-call text-base-color"></i>
+                                @foreach ($phones as $index => $phone)
+                                {{ $phone }} @if (!$loop->last) || @endif 
+                                @endforeach</a>
+                            <div class="widget fs-15 ms-30px text-dark-gray d-none d-xl-inline-block"><i class="feather icon-feather-mail text-base-color"></i> {{ $contact->email }}</div> 
                         </div>
                     </div>
                 </div>
@@ -72,11 +79,13 @@
                                     <a href="{{ route('users.services') }}" class="nav-link">Services</a>
                                     <i class="fa-solid fa-angle-down dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        @foreach ($services as $ser)
                                         <li>
-                                            <a href="{{ route('users.servicedetails') }}">
-                                                <div class="submenu-icon-content">Service1</div>
+                                            <a href="{{ route('users.servicedetails', ['id' => $ser->id]) }}">
+                                                <div class="submenu-icon-content">{{ $ser['name'] }}</div>
                                             </a>
                                         </li>
+                                        @endforeach
                                     </ul>
                                 </li>
                                 <li class="nav-item"><a href="{{ route('users.packages') }}" class="nav-link">Packages</a></li>
@@ -119,10 +128,10 @@
                     
                     <div class="col-xl-6 col-sm-6 position-relative text-center elements-social social-text-style-08 order-2 order-xl-3 xs-mb-10px"> 
                         <ul class="small-icon dark">
-                            <li><a class="facebook" href="https://www.facebook.com/profile.php?id=100077368840528" target="_blank"><i class="fa-brands fa-facebook-f"></i></a></li>
-                            <li><a class="dribbble" href="https://www.youtube.com/@royalrichairtravels2007" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
-                            <li><a class="instagram" href="https://www.instagram.com/royal_rich_airtravel/profilecard/?igsh=Zm05dTJ1cTkyNHZq" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
-                            <li><a class="twitter" href="http://www.twitter.com" target="_blank"><i class="fa-brands fa-x-twitter"></i></a></li> 
+                            <li><a class="facebook" href="{{ $contact->facebook }}" target="_blank"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            <li><a class="dribbble" href="{{ $contact->youtube }}" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
+                            <li><a class="instagram" href="{{ $contact->instagram }}" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+                            <li><a class="twitter" href="{{ $contact->x }}" target="_blank"><i class="fa-brands fa-x-twitter"></i></a></li> 
                         </ul>  
                     </div>
                     <div class="col-xl-3 col-sm-6 text-center text-sm-end last-paragraph-no-margin fs-15 text-dark-gray order-3 order-md-3	"> 

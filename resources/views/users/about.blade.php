@@ -1,4 +1,4 @@
-<x-userlayout>
+<x-userlayout :services="$services">
         <!-- end header -->
         <!-- start page title -->
         <section class="page-title-button-style cover-background position-relative ipad-top-space-margin top-space-padding md-pt-20px" style="background-image: url('{{asset('images/banner/royal-rich-about-title-bg.jpg')}}')">
@@ -23,7 +23,7 @@
                             <div class="atropos-scale">
                                 <div class="atropos-rotate">
                                     <div class="atropos-inner">
-                                        <img data-atropos-offset="5" src="https://placehold.co/580x630" alt="">  
+                                        <img data-atropos-offset="5" src="{{asset('storage/abouts/'.$about->image)}}" alt="">  
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="col-xl-5 offset-xl-1 col-lg-6 text-center text-lg-start">
                         <h1 class="alt-font fw-600 text-dark-gray ls-minus-2px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay":0, "staggervalue": 100, "easing": "easeOutQuad" }'>Our Journey</h1>
-                        <p class="w-85 md-w-100" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay":100, "staggervalue": 100, "easing": "easeOutQuad" }'>Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since. Lorem ipsum is simply dummy text.</p>
+                        <p class="w-85 md-w-100" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay":100, "staggervalue": 100, "easing": "easeOutQuad" }'>{{ $about->our_journey }}.</p>
                         <div class="d-inline-block mt-10px" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 800, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'> 
                             
                             
@@ -52,7 +52,7 @@
                                 <h4 class="alt-font fw-600 text-dark-gray ls-minus-2px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay":0, "staggervalue": 100, "easing": "easeOutQuad" }'>Our Vision</h4>
                             </div>
                             <div class="border-top border-1 border-color-extra-medium-gray p-15px last-paragraph-no-margin">
-                                <p class="text-dark-gray fw-500">2019 - Best of the best</p>
+                                <p class="text-dark-gray fw-500">{{ $about->vision }}</p>
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                                 <h4 class="alt-font fw-600 text-dark-gray ls-minus-2px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay":0, "staggervalue": 100, "easing": "easeOutQuad" }'>Our Mission</h4>
                             </div>
                             <div class="border-top border-1 border-color-extra-medium-gray p-15px last-paragraph-no-margin">
-                                <p class="text-dark-gray fw-500">2020 - Travel of excellence 2020 - Travel of excellence</p>
+                                <p class="text-dark-gray fw-500">{{ $about->mission }}</p>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                                 <h4 class="alt-font fw-600 text-dark-gray ls-minus-2px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay":0, "staggervalue": 100, "easing": "easeOutQuad" }'>Our Values</h4>
                             </div>
                             <div class="border-top border-1 border-color-extra-medium-gray p-15px last-paragraph-no-margin">
-                                <p class="text-dark-gray fw-500">2021 - Responsible tourism</p>
+                                <p class="text-dark-gray fw-500">{{ $about->our_values }}</p>
                             </div>
                         </div>
                     </div>

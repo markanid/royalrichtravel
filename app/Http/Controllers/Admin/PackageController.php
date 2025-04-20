@@ -36,6 +36,7 @@ class PackageController extends Controller
         $validated = $request->validate([
             'name'          => 'required|string|max:500',
             'description'   => 'required|string|max:500',
+            'location'      => 'required|string|max:500',
             'image'         => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120'
         ]);
 

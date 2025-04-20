@@ -71,11 +71,21 @@
                         @endif
                     </div>
                 </div>
+                
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" name="location" tabindex="4" class="form-control" value="{{ !empty($package->location) ? $package->location : '' }}">
+                        @if ($errors->has('location'))
+                          <span class="text-danger">{{ $errors->first('location') }}</span>
+                        @endif
+                    </div>
+                </div>
 
             </div>
         </div>
         <div class="card-footer" align="center">
-            <button type="submit" id="submitBtn" tabindex="4" class="btn btn-primary  btn-flat"><i class="fas fa-save"></i> Save</button>
+            <button type="submit" id="submitBtn" tabindex="5" class="btn btn-primary  btn-flat"><i class="fas fa-save"></i> Save</button>
             <button type="reset" value="Reset" id="resetbtn" tabindex="p" class="btn btn-secondary  btn-flat"><i class="fas fa-undo-alt"></i> Reset</button>
             
         </div>

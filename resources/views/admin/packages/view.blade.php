@@ -59,6 +59,10 @@
                             <span>Description :</span>
                             <label>{{ $package->description }}</label>
                         </td>
+                        <td>
+                            <span>Location :</span>
+                            <label>{{ $package->location }}</label>
+                        </td>
                     </tr>
                 </tbody>
             </table>

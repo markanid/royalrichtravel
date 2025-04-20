@@ -1,4 +1,4 @@
-﻿<?php include 'header.php';?>
+﻿<x-userlayout :services="$services" :contact="$contact">
         <!-- end header -->
         <!-- start page title -->
         <section class="page-title-button-style cover-background position-relative ipad-top-space-margin top-space-padding md-pt-20px" style="background-image: url('https://placehold.co/1920x590')">
@@ -407,4 +407,4 @@
             </div>
         </section>
         <!-- start footer -->
-<?php include 'footer.php';?> 
+</x-userlayout> 

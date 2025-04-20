@@ -35,7 +35,7 @@
                             <tr>
                                 <th>SL No.</th>
                                 <th>Name</th>
-                                <th>Description</th>
+                                <th>Location</th>
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
@@ -46,7 +46,7 @@
                                 <tr>
                                     <td>{{$i++;}}</td>
                                     <td><a href={{ route('packages.show', $row->id) }}>{{ $row->name }}</a></td>
-                                    <td>{{$row->description}}</td>
+                                    <td>{{$row->location}}</td>
                                     <td> 
                                          <img src="{{ $row->image ? asset('storage/packages/' . $row->image) : asset('uploads/avatar.png') }}" width="100" height="70" alt="Package Image">
                                     </td>

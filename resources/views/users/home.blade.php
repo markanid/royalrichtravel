@@ -1,4 +1,4 @@
-﻿<x-userlayout>
+﻿<x-userlayout :services="$services" :contact="$contact">
     <!-- end header -->
         <!-- start section -->
         <section class="p-0 bg-dark-gray">
@@ -12,7 +12,7 @@
                             <!-- MINIMUM SLIDE STRUCTURE -->
                             <li id="rs-travel-agency-01" data-index="rs-travel-agency-01" data-transition="slidehorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="0" data-fsslotamount="2" data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10='{"revslider-weather-addon":{"type":"name","name":"Cologne","woeid":"667931","unit":"c"}}' data-description="">
                                 <!-- SLIDE'S MAIN BACKGROUND IMAGE -->
-                                    @php
+                                 @php
                                         $images = is_array($banner->banner) ? $banner->banner : json_decode($banner->banner ?? '[]', true);
                                     @endphp
 
@@ -25,19 +25,21 @@
                                 
                             </li>
                             @endforeach
-                            <!-- MINIMUM SLIDE STRUCTURE -->
-                            {{-- <li id="rs-travel-agency-02" data-index="rs-travel-agency-02" data-transition="slidehorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="0" data-fsslotamount="2" data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10='{"revslider-weather-addon":{"type":"name","name":"Cologne","woeid":"667931","unit":"c"}}' data-description="">
-                                <!-- SLIDE'S MAIN BACKGROUND IMAGE -->
-                                <img src="{{asset('images/banner/slider3.jpg')}}" alt="dummy" class="rev-slidebg">
-                                <!-- start image layer -->
                                 
                             </li>
                             <!-- MINIMUM SLIDE STRUCTURE -->
-                            <li id="rs-travel-agency-03" data-index="rs-travel-agency-03" data-transition="slidehorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="0" data-fsslotamount="2" data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10='{"revslider-weather-addon":{"type":"name","name":"Cologne","woeid":"667931","unit":"c"}}' data-description="">
+                            <!--<li id="rs-travel-agency-02" data-index="rs-travel-agency-02" data-transition="slidehorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="0" data-fsslotamount="2" data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10='{"revslider-weather-addon":{"type":"name","name":"Cologne","woeid":"667931","unit":"c"}}' data-description="">-->
                                 <!-- SLIDE'S MAIN BACKGROUND IMAGE -->
-                                <img src="{{asset('images/banner/slider1.jpg')}}" alt="dummy" class="rev-slidebg">
+                            <!--    <img src="{{asset('images/banner/slider3.jpg')}}" alt="dummy" class="rev-slidebg">-->
+                                <!-- start image layer -->
                                 
-                            </li> --}}
+                            <!--</li>-->
+                            <!-- MINIMUM SLIDE STRUCTURE -->
+                            <!--<li id="rs-travel-agency-03" data-index="rs-travel-agency-03" data-transition="slidehorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="0" data-fsslotamount="2" data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10='{"revslider-weather-addon":{"type":"name","name":"Cologne","woeid":"667931","unit":"c"}}' data-description="">-->
+                                <!-- SLIDE'S MAIN BACKGROUND IMAGE -->
+                            <!--    <img src="{{asset('images/banner/slider1.jpg')}}" alt="dummy" class="rev-slidebg">-->
+                                
+                            <!--</li>-->
                         </ul>
                     </div>
                 </div>
@@ -63,15 +65,20 @@
                     </div>
                     <div class="col-lg-1 col-md-2 d-none d-md-inline-block"><div class="divider-dot d-flex align-items-center w-100 h-200px"></div></div>
                     <div class="col-lg-5 col-md-9 offset-md-1" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 800, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                        <h1 class="alt-font fw-600 text-dark-gray ls-minus-3px w-90 xl-w-100 mb-30px">Discover the world's leading travel agency.</h1>
-                        <p class="w-75 lg-w-100">Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since.</p> 
+                        <h1 class="alt-font fw-600 text-dark-gray ls-minus-3px w-90 xl-w-100 mb-30px">{{ $about['welcome'] }}.</h1>
+                        <p class="w-75 lg-w-100">
+                            @php
+                                $sentences = preg_split('/(?<=[.?!])\s+/', $about->glimbse);
+                                $firstFour = implode(' ', array_slice($sentences, 0, 4));
+                            @endphp
+                            {{ $about->glimbse }}
+                            </p> 
                         <div class="d-inline-block mt-5px"> 
-                            <a href="demo-travel-agency-about.html" class="btn btn-large btn-round-edge btn-dark-gray btn-hover-animation btn-box-shadow me-25px">
+                            <a href="{{ route('users.aboutus') }}" class="btn btn-large btn-round-edge btn-dark-gray btn-hover-animation btn-box-shadow me-25px">
                                 <span> 
                                     <span class="btn-text">About company</span><span class="btn-icon"><i class="feather icon-feather-feather"></i></span> 
                                 </span>
                             </a>
-                            <a href="demo-travel-agency-tours.html" class="btn btn-link-gradient expand btn-extra-large text-dark-gray text-dark-gray-hover ls-0px">Discover tour<span class="bg-dark-gray"></span></a>
                         </div>
                     </div> 
                     <div class="col-lg-4 col-md-8 position-relative offset-lg-1 offset-md-4 ps-0 sm-ps-15px md-mt-50px" data-anime='{ "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'> 
@@ -81,57 +88,19 @@
                 </div>  
                 <div class="row row-cols-1 row-cols-lg-4 row-cols-sm-2 justify-content-center" data-anime='{ "el": "childs", "rotateZ": [5, 0], "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
                     <!-- start features box item -->
-                    <div class="col icon-with-text-style-01 md-mb-30px">
-                        <div class="feature-box feature-box-left-icon-middle last-paragraph-no-margin">
-                            <div class="feature-box-icon">
-                                <i class="line-icon-Medal-2 icon-large text-base-color"></i>
-                            </div>
-                            <div class="feature-box-content">
-                                <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">Superior service</span>
-                                <p class="lh-24">Lorem ipsum text</p>
+                    @foreach ($features as $feature)
+                        <div class="col icon-with-text-style-01 md-mb-30px">
+                            <div class="feature-box feature-box-left-icon-middle last-paragraph-no-margin">
+                                <div class="feature-box-icon">
+                                    <i class="line-icon-Medal-2 icon-large text-base-color"></i>
+                                </div>
+                                <div class="feature-box-content">
+                                    <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">{{ $feature['name'] }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                     <!-- end features box item -->
-                    <!-- start features box item -->
-                    <div class="col icon-with-text-style-01 md-mb-30px">
-                        <div class="feature-box feature-box-left-icon-middle last-paragraph-no-margin">
-                            <div class="feature-box-icon">
-                                <i class="line-icon-Globe icon-large text-base-color"></i>
-                            </div>
-                            <div class="feature-box-content">
-                                <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">Cheapest package</span>
-                                <p class="lh-24">Lorem ipsum text</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end features box item -->
-                    <!-- start features box item -->
-                    <div class="col icon-with-text-style-01 xs-mb-30px">
-                        <div class="feature-box feature-box-left-icon-middle last-paragraph-no-margin">
-                            <div class="feature-box-icon">
-                                <i class="line-icon-Administrator icon-large text-base-color"></i>
-                            </div>
-                            <div class="feature-box-content">
-                                <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">Greatest guides</span>
-                                <p class="lh-24">Lorem ipsum text</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end features box item -->
-                    <!-- start features box item -->
-                    <div class="col icon-with-text-style-01">
-                        <div class="feature-box feature-box-left-icon-middle last-paragraph-no-margin">
-                            <div class="feature-box-icon">
-                                <i class="line-icon-Police icon-large text-base-color"></i>
-                            </div>
-                            <div class="feature-box-content">
-                                <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">Fully protected</span>
-                                <p class="lh-24">Lorem ipsum text</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end features box item --> 
                 </div>
             </div>
         </section>
@@ -140,8 +109,8 @@
             <div class="container"> 
                 <div class="row justify-content-center mb-3">
                     <div class="col-lg-6 text-center" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                        <span class="fw-500 text-base-color text-uppercase d-inline-block">Most popular tours</span>
-                        <h2 class="alt-font fw-600 text-dark-gray ls-minus-2px">Popular packages</h2>
+                        <!--<span class="fw-500 text-base-color text-uppercase d-inline-block">Most popular tours</span>-->
+                        <h2 class="alt-font fw-600 text-dark-gray ls-minus-2px">Our Services</h2>
                     </div>
                 </div>
                 <div class="row row-cols-1 justify-content-center mb-10 md-mb-5 xs-mb-10">
@@ -150,181 +119,26 @@
                         <div class="swiper slider-four-slide magic-cursor swiper-number-navigation-style" data-slider-options='{ "slidesPerView": 1, "spaceBetween": 30, "loop": true, "pagination": { "el": ".swiper-pagination", "clickable": true }, "autoplay": { "delay": 4000, "disableOnInteraction": false }, "navigation": { "nextEl": ".slider-four-slide-next", "prevEl": ".slider-four-slide-prev" }, "keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1400": { "slidesPerView": 4 }, "1200": { "slidesPerView": 3 }, "992": { "slidesPerView": 3 }, "576": { "slidesPerView": 2 } }, "effect": "slide" }' data-swiper-number-navigation="true" data-swiper-show-progress="true">
                             <div class="swiper-wrapper pb-5 md-pb-6">
                                 <!-- start content carousal item -->
+                                @foreach ($services as $service)
                                 <div class="swiper-slide">
                                     <div class="overflow-hidden border-radius-6px box-shadow-large">
                                         <div class="image">
-                                            <a href="demo-travel-agency-tour-details-page.html">
-                                                <img class="w-100" src="https://placehold.co/800x655" alt="">
-                                            </a>
+                                            <img class="w-100" src="{{ asset('storage/services/'.$service->image) }}" alt="" style="height: 450px; width: 100%; object-fit: cover;>
                                         </div> 
+                                        @php
+                                            $sentences = preg_split('/(?<=[.?!])\s+/', $service->description);
+                                            $firstTwo = implode(' ', array_slice($sentences, 0, 2));
+                                        @endphp
                                         <div class="bg-white p-35px position-relative">
-                                            <div class="bg-base-color ps-15px pe-15px fs-14 text-uppercase fw-500 d-inline-block text-white position-absolute right-0px top-0px">10 days</div>
-                                            <div class="fs-24 fw-700 text-dark-gray"><span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">Just</span>$1299<span class="ms-5px position-relative text-red fs-19 fw-500">$1500<span class="w-100 h-1px position-absolute left-0px top-50 bg-red"></span></span></div>
-                                            <a href="demo-travel-agency-tour-details-page.html" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Majestic india life and great wildlife.</a>
-                                            <div class="d-flex align-items-center pt-15px mt-20px border-top border-color-extra-medium-gray">
-                                                <span class="fw-500 fs-14 d-inline-block text-uppercase">18 Reviews</span>
-                                                <div class="review-star-icon ms-auto">
-                                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                                </div>
-                                            </div>
+                                            <h5 class="alt-font fw-600 text-dark-gray ls-minus-2px">{{ $service->name }}</h5>
+                                            <div class="fs-24 fw-700 text-dark-gray"><span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">{{ $firstTwo }}</span></div>
+                                            <a href="{{ route('users.servicedetails', ['id' => $service->id]) }}" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Read More</a>
+                                            
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                                 <!-- end content carousal item -->
-                                <!-- start content carousal item -->
-                                <div class="swiper-slide">
-                                    <div class="overflow-hidden border-radius-6px box-shadow-large">
-                                        <div class="image">
-                                            <a href="demo-travel-agency-tour-details-page.html">
-                                                <img class="w-100" src="https://placehold.co/800x655" alt="">
-                                            </a>
-                                        </div> 
-                                        <div class="bg-white p-35px position-relative">
-                                            <div class="bg-base-color ps-15px pe-15px fs-14 text-uppercase fw-500 d-inline-block text-white position-absolute right-0px top-0px">08 days</div>
-                                            <div class="fs-24 fw-700 text-dark-gray"><span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">Just</span>$1099<span class="ms-5px position-relative text-red fs-19 fw-500">$1200<span class="w-100 h-1px position-absolute left-0px top-50 bg-red"></span></span></div>
-                                            <a href="demo-travel-agency-tour-details-page.html" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Maldives resorts with return flights.</a>
-                                            <div class="d-flex align-items-center pt-15px mt-20px border-top border-color-extra-medium-gray">
-                                                <span class="fw-500 fs-14 d-inline-block text-uppercase">12 Reviews</span>
-                                                <div class="review-star-icon ms-auto">
-                                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end content carousal item -->
-                                <!-- start content carousal item -->
-                                <div class="swiper-slide">
-                                    <div class="overflow-hidden border-radius-6px box-shadow-large">
-                                        <div class="image">
-                                            <a href="demo-travel-agency-tour-details-page.html">
-                                                <img class="w-100" src="https://placehold.co/800x655" alt="">
-                                            </a>
-                                        </div> 
-                                        <div class="bg-white p-35px position-relative">
-                                            <div class="bg-base-color ps-15px pe-15px fs-14 text-uppercase fw-500 d-inline-block text-white position-absolute right-0px top-0px">05 days</div>
-                                            <div class="fs-24 fw-700 text-dark-gray"><span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">Just</span>$1349<span class="ms-5px position-relative text-red fs-19 fw-500">$1700<span class="w-100 h-1px position-absolute left-0px top-50 bg-red"></span></span></div>
-                                            <a href="demo-travel-agency-tour-details-page.html" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Dubai parks resorts special packages.</a>
-                                            <div class="d-flex align-items-center pt-15px mt-20px border-top border-color-extra-medium-gray">
-                                                <span class="fw-500 fs-14 d-inline-block text-uppercase">10 Reviews</span>
-                                                <div class="review-star-icon ms-auto">
-                                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end content carousal item -->
-                                <!-- start content carousal item -->
-                                <div class="swiper-slide">
-                                    <div class="overflow-hidden border-radius-6px box-shadow-large">
-                                        <div class="image">
-                                            <a href="demo-travel-agency-tour-details-page.html">
-                                                <img class="w-100" src="https://placehold.co/800x655" alt="">
-                                            </a>
-                                        </div> 
-                                        <div class="bg-white p-35px position-relative">
-                                            <div class="bg-base-color ps-15px pe-15px fs-14 text-uppercase fw-500 d-inline-block text-white position-absolute right-0px top-0px">10 days</div>
-                                            <div class="fs-24 fw-700 text-dark-gray"><span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">Just</span>$1699<span class="ms-5px position-relative text-red fs-19 fw-500">$1800<span class="w-100 h-1px position-absolute left-0px top-50 bg-red"></span></span></div>
-                                            <a href="demo-travel-agency-tour-details-page.html" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">The everyday urban jungle of city.</a>
-                                            <div class="d-flex align-items-center pt-15px mt-20px border-top border-color-extra-medium-gray">
-                                                <span class="fw-500 fs-14 d-inline-block text-uppercase">16 Reviews</span>
-                                                <div class="review-star-icon ms-auto">
-                                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                                </div> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end content carousal item --> 
-                                <!-- start content carousal item -->
-                                <div class="swiper-slide">
-                                    <div class="overflow-hidden border-radius-6px box-shadow-large">
-                                        <div class="image">
-                                            <a href="demo-travel-agency-tour-details-page.html">
-                                                <img class="w-100" src="https://placehold.co/800x655" alt="">
-                                            </a>
-                                        </div> 
-                                        <div class="bg-white p-35px position-relative">
-                                            <div class="bg-base-color ps-15px pe-15px fs-14 text-uppercase fw-500 d-inline-block text-white position-absolute right-0px top-0px">10 days</div>
-                                            <div class="fs-24 fw-700 text-dark-gray"><span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">Just</span>$1299<span class="ms-5px position-relative text-red fs-19 fw-500">$1500<span class="w-100 h-1px position-absolute left-0px top-50 bg-red"></span></span></div>
-                                            <a href="demo-travel-agency-tour-details-page.html" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Majestic india life and great wildlife.</a>
-                                            <div class="d-flex align-items-center pt-15px mt-20px border-top border-color-extra-medium-gray">
-                                                <span class="fw-500 fs-14 d-inline-block text-uppercase">18 Reviews</span>
-                                                <div class="review-star-icon ms-auto">
-                                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end content carousal item -->
-                                <!-- start content carousal item -->
-                                <div class="swiper-slide">
-                                    <div class="overflow-hidden border-radius-6px box-shadow-large">
-                                        <div class="image">
-                                            <a href="demo-travel-agency-tour-details-page.html">
-                                                <img class="w-100" src="https://placehold.co/800x655" alt="">
-                                            </a>
-                                        </div> 
-                                        <div class="bg-white p-35px position-relative">
-                                            <div class="bg-base-color ps-15px pe-15px fs-14 text-uppercase fw-500 d-inline-block text-white position-absolute right-0px top-0px">08 days</div>
-                                            <div class="fs-24 fw-700 text-dark-gray"><span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">Just</span>$1099<span class="ms-5px position-relative text-red fs-19 fw-500">$1200<span class="w-100 h-1px position-absolute left-0px top-50 bg-red"></span></span></div>
-                                            <a href="demo-travel-agency-tour-details-page.html" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Maldives resorts with return flights.</a>
-                                            <div class="d-flex align-items-center pt-15px mt-20px border-top border-color-extra-medium-gray">
-                                                <span class="fw-500 fs-14 d-inline-block text-uppercase">12 Reviews</span>
-                                                <div class="review-star-icon ms-auto">
-                                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end content carousal item -->
-                                <!-- start content carousal item -->
-                                <div class="swiper-slide">
-                                    <div class="overflow-hidden border-radius-6px box-shadow-large">
-                                        <div class="image">
-                                            <a href="demo-travel-agency-tour-details-page.html">
-                                                <img class="w-100" src="https://placehold.co/800x655" alt="">
-                                            </a>
-                                        </div> 
-                                        <div class="bg-white p-35px position-relative">
-                                            <div class="bg-base-color ps-15px pe-15px fs-14 text-uppercase fw-500 d-inline-block text-white position-absolute right-0px top-0px">05 days</div>
-                                            <div class="fs-24 fw-700 text-dark-gray"><span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">Just</span>$1349<span class="ms-5px position-relative text-red fs-19 fw-500">$1700<span class="w-100 h-1px position-absolute left-0px top-50 bg-red"></span></span></div>
-                                            <a href="demo-travel-agency-tour-details-page.html" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Dubai parks resorts special packages.</a>
-                                            <div class="d-flex align-items-center pt-15px mt-20px border-top border-color-extra-medium-gray">
-                                                <span class="fw-500 fs-14 d-inline-block text-uppercase">10 Reviews</span>
-                                                <div class="review-star-icon ms-auto">
-                                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end content carousal item -->
-                                <!-- start content carousal item -->
-                                <div class="swiper-slide">
-                                    <div class="overflow-hidden border-radius-6px box-shadow-large">
-                                        <div class="image">
-                                            <a href="demo-travel-agency-tour-details-page.html">
-                                                <img class="w-100" src="https://placehold.co/800x655" alt="">
-                                            </a>
-                                        </div> 
-                                        <div class="bg-white p-35px position-relative">
-                                            <div class="bg-base-color ps-15px pe-15px fs-14 text-uppercase fw-500 d-inline-block text-white position-absolute right-0px top-0px">10 days</div>
-                                            <div class="fs-24 fw-700 text-dark-gray"><span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">Just</span>$1699<span class="ms-5px position-relative text-red fs-19 fw-500">$1800<span class="w-100 h-1px position-absolute left-0px top-50 bg-red"></span></span></div>
-                                            <a href="demo-travel-agency-tour-details-page.html" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">The everyday urban jungle of city.</a>
-                                            <div class="d-flex align-items-center pt-15px mt-20px border-top border-color-extra-medium-gray">
-                                                <span class="fw-500 fs-14 d-inline-block text-uppercase">16 Reviews</span>
-                                                <div class="review-star-icon ms-auto">
-                                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                                </div> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end content carousal item --> 
                             </div>
                             <!-- start slider pagination -->
                             <div class="swiper-navigation-wrapper d-flex align-items-center justify-content-center">
@@ -389,8 +203,8 @@
             <div class="container">
                 <div class="row align-items-center justify-content-center" data-anime='{ "translateY": [0, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
                     <div class="col-lg-3 md-mb-20px text-center text-lg-start">
-                        <!--<span class="fw-500 text-base-color text-uppercase">Testimonials</span>-->
-                        <h2 class="alt-font fw-600 text-dark-gray ls-minus-2px">Our Services.</h2>
+                        <!--<span class="fw-500 text-base-color text-uppercase">Most popular tours</span>-->
+                        <h2 class="alt-font fw-600 text-dark-gray ls-minus-2px">Our Packages.</h2>
                         <div class="d-flex justify-content-center justify-content-lg-start">
                             <!-- start slider navigation -->
                             <div class="slider-one-slide-prev-1 bg-white box-shadow-double-large swiper-button-prev slider-navigation-style-04"><i class="bi bi-arrow-left-short icon-very-medium"></i></div>
