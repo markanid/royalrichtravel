@@ -1,4 +1,4 @@
-<x-userlayout :services="$services">
+<x-userlayout :services="$services" :contact="$contact">
         <!-- end header -->
         <!-- start page title -->
         <section class="page-title-button-style cover-background position-relative ipad-top-space-margin top-space-padding md-pt-20px" style="background-image: url('{{asset('images/banner/royal-rich-about-title-bg.jpg')}}')">

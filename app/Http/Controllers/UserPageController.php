@@ -15,63 +15,60 @@ use Illuminate\Support\Facades\Validator;
 class UserPageController extends Controller
 {
     public function home() {
-        $banners            = Banner::oldest('created_at')->get();
-        $about              = About::oldest('created_at')->first();
-        $services           = Service::oldest('created_at')->get();
-        $features           = Feature::oldest('created_at')->get();
-        $contact            = Contact::oldest('created_at')->first();
-        $data['banners']    = $banners;
-        $data['about']      = $about;
-        $data['services']   = $services;
-        $data['features']   = $features;
-        $data['contact']    = $contact;
-        return view("users.home", $data);
+        return view("users.home", [
+            'banners'  => Banner::oldest('created_at')->get(),
+            'about'    => About::oldest('created_at')->first(),
+            'services' => Service::oldest('created_at')->get(),
+            'features' => Feature::oldest('created_at')->get(),
+            'packages' => Package::oldest('created_at')->get(),
+            'contact'  => Contact::oldest('created_at')->first(),
+        ]);
     }
 
     public function about() {
-        $services           = Service::oldest('created_at')->get();
-        $about              = About::oldest('created_at')->first();
-        $data['services']   = $services;
-        $data['about']      = $about;
-        return view("users.about", $data);
+        return view("users.about", [
+            'about'    => About::oldest('created_at')->first(),
+            'services' => Service::oldest('created_at')->get(),
+            'contact'   => Contact::oldest('created_at')->first(),
+        ]);
     }
 
     public function contact() {
-        $services           = Service::oldest('created_at')->get();
-        $contact            = Contact::oldest('created_at')->first();
-        $data['services']   = $services;
-        $data['contact']    = $contact;
-        return view("users.contact", $data);
+        return view("users.contact", [
+            'contact'   => Contact::oldest('created_at')->first(),
+            'services'  => Service::oldest('created_at')->get(),
+        ]);
     }
 
     public function service() {
-        $services           = Service::oldest('created_at')->get();
-        $data['services']   = $services;
-        return view("users.services", $data);
+        return view("users.services", [
+            'services' => Service::oldest('created_at')->get(),
+            'contact'   => Contact::oldest('created_at')->first(),
+        ]);
     }
 
     public function servicedetails($id) {
-        $services           = Service::oldest('created_at')->get();
-        $service            = Service::findOrFail($id);
-        $data['services']   = $services;
-        $data['service']    = $service;
-        return view("users.service-details", $data);
+        return view("users.service-details", [
+            'services'  => Service::oldest('created_at')->get(),
+            'service'   => Service::findOrFail($id),
+            'contact'   => Contact::oldest('created_at')->first(),
+        ]);
     }
 
     public function package() {
-        $services           = Service::oldest('created_at')->get();
-        $packages           = Package::oldest('created_at')->get();
-        $data['services']   = $services;
-        $data['packages']   = $packages;
-        return view("users.packages", $data);
+        return view("users.packages", [
+            'services' => Service::oldest('created_at')->get(),
+            'packages' => Package::oldest('created_at')->get(),
+            'contact'   => Contact::oldest('created_at')->first(),
+        ]);
     }
 
     public function packagedetails($id) {
-        $services           = Service::oldest('created_at')->get();
-        $package            = Package::findOrFail($id);
-        $data['services']   = $services;
-        $data['package']    = $package;
-        return view("users.packages-details", $data);
+        return view("users.packages-details", [
+            'services'  => Service::oldest('created_at')->get(),
+            'package'   => Package::findOrFail($id),
+            'contact'   => Contact::oldest('created_at')->first(),
+        ]);
     }
     
     public function sendEmail(Request $request) {

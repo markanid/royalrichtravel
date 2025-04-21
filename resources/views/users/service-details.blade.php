@@ -1,7 +1,7 @@
 ﻿<x-userlayout :services="$services" :contact="$contact">
     <!-- end header -->
     <!-- start page title -->
-    <section class="page-title-button-style cover-background position-relative ipad-top-space-margin top-space-padding md-pt-20px" style="background-image: url('images/banner/service.jpg')">
+    <section class="page-title-button-style cover-background position-relative ipad-top-space-margin top-space-padding md-pt-20px" style="background-image: url('{{ asset('images/banner/service.jpg') }}')">
         <div class="opacity-light bg-bay-of-many-blue"></div>
         <div class="container">
             <div class="row align-items-center justify-content-center extra-small-screen">

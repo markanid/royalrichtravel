@@ -42,12 +42,13 @@
                         </div>
                         <div class="col-xl-8 text-end d-none d-lg-flex">
                             <a href="tel:02228899900" class="widget fs-15 text-dark-gray text-dark-gray-hover">
+                                <a class="widget fs-15 text-dark-gray text-dark-gray-hover">
                                 @php
                                     $phones = is_array($contact->phones) ? $contact->phones : json_decode($contact->phones ?? '[]', true);
                                 @endphp
                                 <i class="feather icon-feather-phone-call text-base-color"></i>
                                 @foreach ($phones as $index => $phone)
-                                {{ $phone }} @if (!$loop->last) || @endif 
+                                {{ $phone }} @if (!$loop->last) || @endif
                                 @endforeach</a>
                             <div class="widget fs-15 ms-30px text-dark-gray d-none d-xl-inline-block"><i class="feather icon-feather-mail text-base-color"></i> {{ $contact->email }}</div> 
                         </div>
@@ -59,9 +60,9 @@
                 <div class="container-fluid">
                     <div class="col-auto col-lg-4 me-auto">
                         <a class="navbar-brand" href="demo-travel-agency.html">
-                            <img src="images/logo/logo.png" data-at2x="{{asset('images/logo/logo.png')}}" alt="Royal Rich Air Travels" class="default-logo">
-                            <img src="images/logo/logo.png" data-at2x="{{asset('images/logo/logo.png')}}" alt="Royal Rich Air Travels" class="alt-logo">
-                            <img src="images/logo/logo.png" data-at2x="{{asset('images/logo/logo.png')}}" alt="Royal Rich Air Travels" class="mobile-logo"> 
+                            <img src="{{asset('images/logo/logo.png')}}" data-at2x="{{asset('images/logo/logo.png')}}" alt="Royal Rich Air Travels" class="default-logo">
+                            <img src="{{asset('images/logo/logo.png')}}" data-at2x="{{asset('images/logo/logo.png')}}" alt="Royal Rich Air Travels" class="alt-logo">
+                            <img src="{{asset('images/logo/logo.png')}}" data-at2x="{{asset('images/logo/logo.png')}}" alt="Royal Rich Air Travels" class="mobile-logo"> 
                         </a>
                     </div>
                     <div class="col-auto col-lg-8 menu-order position-static">
@@ -98,15 +99,15 @@
 
         {{$slot}}
         
-        <footer class="bg-light-gray pb-40px">
+        <footer class="bg-light-gray pb-40px" style="padding-top: 10px;">
             <div class="container">
-                <div class="row mb-2 md-mb-4 overlap-section" data-anime='{ "el": "childs", "translateY": [-15, 0], "scale": [0.5, 1], "opacity": [0,1], "duration": 800, "delay": 300, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                    <div class="col-12 text-center">
-                        <img class="rounded-circle" src="images/logo/favicon.png" alt="" style="width: 200px; height: 200px; margin-top: 0px;"/>
-                    </div>
-                </div> 
+                <!--<div class="row mb-2 md-mb-4 overlap-section" data-anime='{ "el": "childs", "translateY": [-15, 0], "scale": [0.5, 1], "opacity": [0,1], "duration": 800, "delay": 300, "staggervalue": 300, "easing": "easeOutQuad" }'>-->
+                <!--    <div class="col-12 text-center">-->
+                <!--        <img class="rounded-circle" src="images/logo/favicon.png" alt="" style="width: 200px; height: 200px; margin-top: 0px;"/>-->
+                <!--    </div>-->
+                <!--</div> -->
                 <!-- start subscribe item -->
-                <div class="row justify-content-center mb-6 md-mb-8 xs-mb-40px" style="margin-top: -60px;">
+                <div class="row justify-content-center mb-6 md-mb-8 xs-mb-40px" >
                     <div class="col-xl-6 text-center lg-mt-10px sm-mt-0 sm-mb-15px order-1 order-xl-2 order-md-3"> 
                         <ul class="footer-navbar"> 
                         	<li class="nav-item"><a href="{{ route('users.home') }}" class="nav-link">Home</a></li>

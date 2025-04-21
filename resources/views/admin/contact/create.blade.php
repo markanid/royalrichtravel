@@ -76,13 +76,16 @@
                 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Address</label>
+                        <label for="addresses">Address</label>
                         <div id="address-wrapper">
-                            @php $addresses = json_decode($contact->addresses ?? '[]'); @endphp
+                            @php 
+                                $addresses = json_decode($contact->addresses ?? '[]'); 
+                                $addressText = is_array($addresses) ? implode("\n", $addresses) : '';
+                            @endphp
                             @if (!empty($addresses))
                                 @foreach ($addresses as $adr)
                                     <div class="input-group mb-2">
-                                        <input type="text" name="addresses[]" tabindex="3" class="form-control" value="{{ $adr }}">
+                                        <textarea name="addresses[]" id="addresses" rows="3" class="form-control" tabindex="3">{{ $adr }}</textarea>
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-danger remove-address"><i class="fas fa-minus"></i></button>
                                         </div>
@@ -95,7 +98,7 @@
                                 </div>
                             @else
                                 <div class="input-group mb-2">
-                                    <input type="text" name="addresses[]" tabindex="3" class="form-control">
+                                    <textarea name="addresses[]" id="addresses" rows="3" class="form-control" tabindex="3"></textarea>
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-success add-address"><i class="fas fa-plus"></i></button>
                                     </div>
@@ -177,7 +180,7 @@
     $('.add-address').click(function () {
         $('#address-wrapper').append(`
             <div class="input-group mb-2">
-                <input type="text" name="addresses[]" class="form-control" placeholder="Enter address">
+                <textarea name="addresses[]" rows="3" class="form-control" tabindex="3"></textarea>
                 <div class="input-group-append">
                     <button type="button" class="btn btn-danger remove-address"><i class="fas fa-minus"></i></button>
                 </div>

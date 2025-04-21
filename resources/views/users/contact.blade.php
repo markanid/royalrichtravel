@@ -91,14 +91,20 @@ padding-bottom: 1px;
                 <!-- start features box item -->
                     
                 @foreach ($addresses as $index => $address)
+                @php
+                    // Split only the first comma occurrence
+                    $parts = explode(',', $address, 2);
+                    $title = trim($parts[0]);
+                    $details = isset($parts[1]) ? trim($parts[1]) : '';
+                @endphp
                     <div class="col icon-with-text-style-01 md-mb-30px">
                         <div class="feature-box feature-box-left-icon-middle last-paragraph-no-margin">
                             <div class="feature-box-icon">
                                 <i class="line-icon-Medal-2 icon-large text-base-color"></i>
                             </div>
                             <div class="feature-box-content">
-                                <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">{{ $address }}</span>
-                                {{-- <p class="lh-24">Lorem ipsum text</p> --}}
+                                <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">{{ $title }}</span>
+                                <p class="lh-24">{{ $details }}</p>
                             </div>
                         </div>
                     </div>
