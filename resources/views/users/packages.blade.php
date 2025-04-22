@@ -60,7 +60,7 @@
                             <div class="fs-24 fw-700 text-dark-gray">{{ $package['name'] }}</div>
                             @php
                                 $sentences = preg_split('/(?<=[.?!])\s+/',  $package['description']);
-                                $firstTwo = implode(' ', array_slice($sentences, 0, 2));
+                                $firstTwo = implode(' ', array_slice($sentences, 0, 1));
                             @endphp
                             <p class="m-0 lh-30">{{ $firstTwo }}</p>
                             
@@ -73,21 +73,6 @@
                 @endforeach
                 <!-- end content carousal item -->
             </div>
-            <div class="row">
-                <div class="col-12 mt-6 d-flex justify-content-center">
-                    <!-- start pagination -->
-                    <ul class="pagination pagination-style-01 fs-13 mb-0 fw-500" data-anime='{ "translate": [0, 0], "opacity": [0,1], "duration": 600, "delay": 50, "staggervalue": 150, "easing": "easeOutQuad" }'>
-                        <li class="page-item"><a class="page-link" href="#"><i class="feather icon-feather-arrow-left fs-18 text-dark-gray d-xs-none"></i></a></li>
-                        <li class="page-item"><a class="page-link" href="#">01</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">02</a></li>
-                        <li class="page-item"><a class="page-link" href="#">03</a></li>
-                        <li class="page-item"><a class="page-link" href="#">04</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><i class="feather icon-feather-arrow-right fs-18 text-dark-gray d-xs-none"></i></a></li>
-                    </ul>
-                    <!-- end pagination -->
-                </div> 
-            </div>
-        </div>
     </section>
     <!-- end section -->        
     <!-- start footer -->

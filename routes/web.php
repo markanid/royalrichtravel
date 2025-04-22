@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\Admin\{AboutController, BannerController, ContactController, FeatureController, LoginController, MetaDataController, PackageController, ServiceController};
 use App\Http\Controllers\UserPageController;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[UserPageController::class,'home'])->name('users.home'); 
 Route::get('aboutus',[UserPageController::class,'about'])->name('users.aboutus'); 
 Route::get('services',[UserPageController::class,'service'])->name('users.services'); 
-Route::get('/servicedetails',[UserPageController::class,'servicedetails'])->name('users.servicedetails'); 
+// Route::get('/servicedetails',[UserPageController::class,'servicedetails'])->name('users.servicedetails'); 
+Route::get("/servicedetails/{slug}", [UserPageController::class, 'servicedetails'])->where('slug', '[A-Za-z0-9\-]+')->name('users.servicedetails');
 Route::get('packages',[UserPageController::class,'package'])->name('users.packages'); 
 Route::get('/packagedetails/{id}',[UserPageController::class,'packagedetails'])->name('users.packagedetails'); 
 Route::get('contactus',[UserPageController::class,'contact'])->name('users.contactus'); 
@@ -43,7 +45,9 @@ Route::group(["prefix"=> "admin"], function () {
         foreach ($resources as $resource => $controller) {
             Route::get("$resource", [$controller, 'index'])->name("$resource.index");
             Route::get("$resource/create", [$controller, 'createOrEdit'])->name("$resource.create");
-            Route::get("$resource/{id}", [$controller, 'show'])->name("$resource.show");
+            // Route::get("$resource/{slug}", [$controller, 'show'])->name("$resource.show");
+            Route::get("$resource/{id}", [$controller, 'show'])->where('id', '[0-9]+')->name("$resource.show");
+            Route::get("$resource/{slug}", [$controller, 'show'])->where('slug', '[A-Za-z0-9\-]+')->name("$resource.show");
             Route::get("$resource/edit/{id}", [$controller, 'createOrEdit'])->name("$resource.edit");
             Route::post("$resource/update", [$controller, 'storeOrUpdate'])->name("$resource.update");
             Route::get("$resource/delete/{id}", [$controller, 'destroy'])->name("$resource.delete");

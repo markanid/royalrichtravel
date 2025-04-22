@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactFormMail;
 use App\Models\Admin\About;
 use App\Models\Admin\Banner;
 use App\Models\Admin\Contact;
@@ -47,10 +48,10 @@ class UserPageController extends Controller
         ]);
     }
 
-    public function servicedetails($id) {
+    public function servicedetails($slug) {
         return view("users.service-details", [
             'services'  => Service::oldest('created_at')->get(),
-            'service'   => Service::findOrFail($id),
+            'service'   => Service::where('slug', $slug)->firstOrFail(),
             'contact'   => Contact::oldest('created_at')->first(),
         ]);
     }
@@ -71,22 +72,21 @@ class UserPageController extends Controller
         ]);
     }
     
-    public function sendEmail(Request $request) {
-        // Validate the form data
+    public function sendEmail(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name'      => 'required|string|max:255',
             'email'     => 'required|email',
-            'phone'     => 'required|string|max:20',
-            'message'   => 'required|string',
+            'phone'     => 'nullable|string|max:20',
+            'comment'   => 'nullable|string|max:1000',
         ]);
     
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        
-        // Send the email
+
         try {
-            Mail::to('gm@alemadisolutions.com')->send(new ContactMail($request->all()));
+            Mail::to('your@mailtrap.inbox@example.com.com')->send(new ContactFormMail($request->all()));
             return redirect()->back()->with('success_message', 'Your message has been sent successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error_message', 'Sorry there was an error sending your form.');

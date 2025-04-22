@@ -34,9 +34,9 @@ class MetaDataController extends Controller
     public function storeOrUpdate(Request $request)
     {
         $validated = $request->validate([
-            'title'         => 'required|string|max:255',
-            'desciption'    => 'required|string|max:255',
-            'keyword'       => 'required|string|max:255',
+            'title'         => 'required|string|max:2000',
+            'desciption'    => 'required|string|max:2000',
+            'keyword'       => 'required|string|max:2000',
             'og_image'      => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120'
         ]);
 

@@ -46,6 +46,7 @@
                         <div class="col contact-form-style-03 bg-white p-70px lg-p-35px">
                             <h3 class="fw-600 alt-font text-dark-gray ls-minus-1px mb-25px">Let's get in touch.</h3>
                             <form action="{{ route('send.email') }}" method="post">
+                                @csrf
                                 <div class="position-relative form-group mb-10px">
                                     <span class="form-icon"><i class="bi bi-emoji-smile"></i></span>
                                     <input class="ps-0 border-radius-0px border-color-extra-medium-gray form-control required" type="text" name="name" placeholder="What's your good name?*" />
@@ -61,12 +62,22 @@
                                 <div class="position-relative form-group form-textarea mt-15px mb-10px xs-mb-0"> 
                                     <textarea class="ps-0 border-radius-0px border-bottom border-color-extra-medium-gray form-control" name="comment" placeholder="Describe about your tour" rows="3"></textarea>
                                     <span class="form-icon"><i class="bi bi-chat-square-dots"></i></span>
-                                    <input type="hidden" name="redirect" value="">
-                                    <button class="btn btn-medium btn-dark-gray btn-box-shadow btn-round-edge mt-30px submit" type="submit" aria-label="submit">Send message</button>
+                                    {{-- <input type="hidden" name="redirect" value=""> --}}
+                                    <button class="btn btn-medium btn-dark-gray btn-box-shadow btn-round-edge mt-30px" type="submit" aria-label="submit">Send message</button>
                                     <div class="form-results mt-20px d-none"></div>
-                                    
                                 </div>
                             </form>
+                            @if(session('success_message'))
+                                <div class="alert alert-success">
+                                    {{ session('success_message') }}
+                                </div>
+                            @endif
+
+                            @if(session('error_message'))
+                                <div class="alert alert-danger">
+                                    {{ session('error_message') }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -77,9 +88,7 @@
     
     <!-- end section -->
     <!-- start section -->
-    <section class="bg-very-light-gray pt-0" style="
-padding-bottom: 1px;
-">
+    <section class="bg-very-light-gray pt-0" style="padding-bottom: 1px;">
         
         <div class="container">
             

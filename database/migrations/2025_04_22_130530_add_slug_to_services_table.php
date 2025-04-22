@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('meta_datas', function (Blueprint $table) {
-            $table->id();
-            $table->text('title');
-            $table->text('desciption');
-            $table->text('keyword');
-            $table->string('og_image',100);
-            $table->timestamps();
+        Schema::table('services', function (Blueprint $table) {
+            $table->string('slug')->unique();
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('meta_datas');
+        Schema::table('services', function (Blueprint $table) {
+            //
+        });
     }
 };

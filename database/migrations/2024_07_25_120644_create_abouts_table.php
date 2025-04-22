@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('abouts', function (Blueprint $table) {
             $table->id();
-            $table->string('welcome',500)->nullable();
-            $table->string('glimbse',500)->nullable();
-            $table->string('our_journey',500)->nullable();
-            $table->string('vision',500)->nullable();
-            $table->string('mission',500)->nullable();
-            $table->string('our_values',500)->nullable();
+            $table->text('welcome')->nullable();
+            $table->text('glimbse')->nullable();
+            $table->text('our_journey')->nullable();
+            $table->text('vision')->nullable();
+            $table->text('mission')->nullable();
+            $table->text('our_values')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

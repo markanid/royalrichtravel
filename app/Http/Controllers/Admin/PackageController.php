@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PackageController extends Controller
 {
@@ -35,7 +36,7 @@ class PackageController extends Controller
     {
         $validated = $request->validate([
             'name'          => 'required|string|max:500',
-            'description'   => 'required|string|max:500',
+            'description'   => 'required|string|max:2000',
             'location'      => 'required|string|max:500',
             'image'         => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120'
         ]);
@@ -53,6 +54,9 @@ class PackageController extends Controller
             $validated['image'] = $filename; // Save filename to database
         }
 
+        $slug = Str::slug($request->name, '-');
+        $validated['slug']  = $slug;
+
         $package = Package::updateOrCreate(
             ['id' => $request->id ?? null], 
             $validated
@@ -66,9 +70,10 @@ class PackageController extends Controller
         }
     }
 
-    public function show($id=null)
+    public function show($slug=null)
     {
-        $package = Package::findOrFail($id);
+        $package = Package::where('slug', $slug)->firstOrFail();
+        // $package = Package::findOrFail($id);
         $data['package']    = $package;
         $data['title']      = "Package View";
         $data['page']       = "Package";

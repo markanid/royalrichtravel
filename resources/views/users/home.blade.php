@@ -10,18 +10,19 @@
                         <ul>
                             @foreach ($banners as $banner)
                             <!-- MINIMUM SLIDE STRUCTURE -->
-                            <li id="rs-travel-agency-01" data-index="rs-travel-agency-01" data-transition="slidehorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="0" data-fsslotamount="2" data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10='{"revslider-weather-addon":{"type":"name","name":"Cologne","woeid":"667931","unit":"c"}}' data-description="">
+                            
+                            <li id="rs-travel-agency-01" data-index="rs-travel-agency-01" data-transition="slidehorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="0" data-fsslotamount="2" data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10='{"revslider-weather-addon":{"type":"name","name":"Cologne","woeid":"667931","unit":"c"}}' data-description="" >
                                 <!-- SLIDE'S MAIN BACKGROUND IMAGE -->
                                  @php
                                         $images = is_array($banner->banner) ? $banner->banner : json_decode($banner->banner ?? '[]', true);
                                     @endphp
 
                                     @foreach ($images as $image)
-                                        <div class="banner-image">
-                                            <img src="{{ asset('storage/banners/' . $image) }}" alt="Banner Image" width="100%" height="100%">
-                                        </div>
+                                        
+                                            <img src="{{ asset('storage/banners/' . $image) }}" alt="Leading Travel Agency in Palakkad" class="rev-slidebg">
+                                        
                                     @endforeach
-                                {{-- <img src="{{asset('images/banner/slider2.jpg')}}" alt="travel agency" class="rev-slidebg"> --}}
+                                {{-- <img src="{{asset('images/banner/slider2.jpg')}}" alt="Leading Travel Agency in Palakkad" class="rev-slidebg"> --}}
                                 
                             </li>
                             @endforeach
@@ -69,8 +70,8 @@
                         </div>
                     </div> 
                     <div class="col-lg-4 col-md-8 position-relative offset-lg-1 offset-md-4 ps-0 sm-ps-15px md-mt-50px" data-anime='{ "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'> 
-                        <img src="https://placehold.co/405x560" class="border-radius-6px md-w-100" alt="">  
-                        <img class="position-absolute left-minus-120px top-80px sm-top-0px sm-w-160px sm-left-0px" src="images/demo-travel-agency-home-02.png" alt="" data-bottom-top="transform: translateY(50px)" data-top-bottom="transform: translateY(-50px)"> 
+                        <img src="{{asset('images/royal-rich-home-about.jpg')}}" class="border-radius-6px md-w-100" alt="Top Travel Agency in Kerala">  
+                        <img class="position-absolute left-minus-120px top-80px sm-top-0px sm-w-160px sm-left-0px" src="images/royal-rich-travel-since-2006.png" alt="Royal Rich Travels Since 2008" data-bottom-top="transform: translateY(50px)" data-top-bottom="transform: translateY(-50px)"> 
                     </div>
                 </div>  
                 <div class="row row-cols-1 row-cols-lg-4 row-cols-sm-2 justify-content-center" data-anime='{ "el": "childs", "rotateZ": [5, 0], "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
@@ -103,23 +104,23 @@
                 <div class="row row-cols-1 justify-content-center mb-10 md-mb-5 xs-mb-10">
                     <!-- start content carousal item -->
                     <div class="col position-relative" data-anime='{ "opacity": [0,1], "duration": 800, "delay": 50, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                        <div class="swiper slider-four-slide magic-cursor swiper-number-navigation-style" data-slider-options='{ "slidesPerView": 1, "spaceBetween": 30, "loop": true, "pagination": { "el": ".swiper-pagination", "clickable": true }, "autoplay": { "delay": 4000, "disableOnInteraction": false }, "navigation": { "nextEl": ".slider-four-slide-next", "prevEl": ".slider-four-slide-prev" }, "keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1400": { "slidesPerView": 4 }, "1200": { "slidesPerView": 3 }, "992": { "slidesPerView": 3 }, "576": { "slidesPerView": 2 } }, "effect": "slide" }' data-swiper-number-navigation="true" data-swiper-show-progress="true">
+                        <div class="swiper slider-four-slide swiper-number-navigation-style" data-slider-options='{ "slidesPerView": 1, "spaceBetween": 30, "loop": true, "pagination": { "el": ".swiper-pagination", "clickable": true }, "autoplay": { "delay": 4000, "disableOnInteraction": false }, "navigation": { "nextEl": ".slider-four-slide-next", "prevEl": ".slider-four-slide-prev" }, "keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1400": { "slidesPerView": 4 }, "1200": { "slidesPerView": 3 }, "992": { "slidesPerView": 3 }, "576": { "slidesPerView": 2 } }, "effect": "slide" }' data-swiper-number-navigation="true" data-swiper-show-progress="true">
                             <div class="swiper-wrapper pb-5 md-pb-6">
                                 <!-- start content carousal item -->
                                 @foreach ($services as $service)
                                 <div class="swiper-slide">
                                     <div class="overflow-hidden border-radius-6px box-shadow-large">
                                         <div class="image">
-                                            <img class="w-100" src="{{ asset('storage/services/'.$service->image) }}" alt="" style="height: 450px; width: 100%; object-fit: cover;>
+                                            <img class="w-100" src="{{ asset('storage/services/'.$service->image) }}" alt="{{ $service->name }}" style="height: 500px; width: 250px;">
                                         </div> 
                                         @php
                                             $sentences = preg_split('/(?<=[.?!])\s+/', $service->description);
                                             $firstTwo = implode(' ', array_slice($sentences, 0, 2));
                                         @endphp
                                         <div class="bg-white p-35px position-relative">
-                                            <h5 class="alt-font fw-600 text-dark-gray ls-minus-2px">{{ $service->name }}</h5>
+                                            <div class="alt-font fw-600 text-dark-gray" style="font-size:25px;">{{ $service->name }}</div>
                                             <div class="fs-24 fw-700 text-dark-gray"><span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">{{ $firstTwo }}</span></div>
-                                            <a href="{{ route('users.servicedetails', ['id' => $service->id]) }}" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Read More</a>
+                                            <a href="{{ route('users.servicedetails', $service->slug) }}" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Read More</a>
                                             
                                         </div>
                                     </div>
@@ -200,24 +201,28 @@
                         </div>
                     </div>
                     <div class="col-xl-8 col-lg-9">
-                        <div class="swiper position-relative magic-cursor" data-slider-options='{ "autoHeight": true, "loop": true, "allowTouchMove": true, "autoplay": { "delay": 3000, "disableOnInteraction": false }, "navigation": { "nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev" }, "effect": "slide" }'>
+                        <div class="swiper position-relative" data-slider-options='{ "autoHeight": true, "loop": true, "allowTouchMove": true, "autoplay": { "delay": 3000, "disableOnInteraction": false }, "navigation": { "nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev" }, "effect": "slide" }'>
                             <div class="swiper-wrapper">
                                 <!-- start text slider item -->
                                  @foreach ($packages as $package)
+                                @php
+                                    $packages = preg_split('/(?<=[.?!])\s+/', $package->description);
+                                    $firstSentence = implode(' ', array_slice($packages, 0, 2));
+                                @endphp
                                 <div class="swiper-slide review-style-11">
                                     <div class="row align-items-center">
                                         <div class="col-md-5 text-center text-md-start sm-mb-15px">
-                                            <img src="{{ asset('storage/packages'.$package->image) }}" alt="">
+                                            <img src="{{ asset('storage/packages/'.$package->image) }}" alt="{{ $package->name }}">
                                         </div> 
                                         <div class="col-md-7 position-relative ps-16 sm-ps-15px text-center text-md-start">
+                                            
                                             <p class="fs-20 lh-28 text-dark-gray mb-20px">
-                                                {{ $package->description }}</p>
-                                            <div class="text-center bg-base-color text-white fs-15 border-radius-22px d-inline-block ps-20px pe-20px lh-36 ls-minus-1px">
-                                                {{ $package->name }}
-                                            </div> 
+                                                {{ $firstSentence }}</p>
+                                            <a href="{{ route('users.packagedetails', ['id' => $package->id]) }}">More Details</a>
+                                            
                                             <div class="position-absolute left-0px top-0px h-100 w-90px sm-w-100 border-end border-color-transparent-dark-very-light sm-position-relative sm-mt-10px sm-border-end-0">
                                                 <div class="vertical-title-center align-items-center justify-content-center sm-vertical-title-inherit">
-                                                    <div class="title fs-20 alt-font text-base-color fw-600 text-uppercase">{{ $package->location }}</div>
+                                                    <div class="title fs-20 alt-font text-base-color fw-600 text-uppercase"> {{ $package->name }}</div>
                                                 </div>
                                             </div>
                                         </div>

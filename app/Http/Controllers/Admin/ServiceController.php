@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ServiceController extends Controller
 {
@@ -35,7 +36,7 @@ class ServiceController extends Controller
     {
         $validated = $request->validate([
             'name'          => 'required|string|max:500',
-            'description'   => 'nullable|string|max:500',
+            'description'   => 'nullable|string|max:2000',
             'image'         => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120'
         ]);
 
@@ -52,6 +53,9 @@ class ServiceController extends Controller
             $validated['image'] = $filename; // Save filename to database
         }
 
+        $slug = Str::slug($request->name, '-');
+        $validated['slug']  = $slug;
+
         $service = Service::updateOrCreate(
             ['id' => $request->id ?? null], 
             $validated
@@ -65,9 +69,10 @@ class ServiceController extends Controller
         }
     }
 
-    public function show($id=null)
+    public function show($slug=null)
     {
-        $service = Service::findOrFail($id);
+        $service = Service::where('slug', $slug)->firstOrFail();
+        // $service = Service::findOrFail($id);
         $data['service']    = $service;
         $data['title']      = "Service View";
         $data['page']       = "Service";

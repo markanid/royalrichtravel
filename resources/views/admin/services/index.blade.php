@@ -44,7 +44,7 @@
                             @foreach($services as $row)
                                 <tr>
                                     <td>{{$i++;}}</td>
-                                    <td><a href={{ route('services.show', $row->id) }}>{{ $row->name }}</a></td>
+                                    <td><a href={{ route('services.show', $row->slug) }}>{{ $row->name }}</a></td>
                                     <td> 
                                          <img src="{{ $row->image ? asset('storage/services/' . $row->image) : asset('uploads/avatar.png') }}" width="100" height="70" alt="Description Image">
                                     </td>

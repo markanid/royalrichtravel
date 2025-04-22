@@ -28,7 +28,6 @@
                             <div class="box-hover text-center">
                                 <figure class="mb-0 position-relative">
                                     <div class="blog-image position-relative overflow-hidden border-radius-6px">
-                                        <a href="{{ route('users.servicedetails', ['id' => $service->id]) }}">
                                             <img src="{{ asset('storage/services/'.$service->image) }}" alt="" style="height: 500px; width: 100%; object-fit: cover;"/>
                                         </a>
                                     </div>
@@ -37,7 +36,12 @@
                                             <a class="card-title mb-0 fs-20 lh-28 text-white d-inline-block">{{ $service->name }}</a>
                                             <div class="box-overlay bg-dark-gray z-index-minus-1"></div>
                                         </div>
-                                        <div class="fs-15 bg-white p-15px lg-ps-10px lg-pe-10px lh-initial"><span class="d-inline-block">{{ $service->description }}</div>
+                                        @php
+                                            $sentences = preg_split('/(?<=[.?!])\s+/', $service->description);
+                                            $firstTwo = implode(' ', array_slice($sentences, 0, 2));
+                                        @endphp
+                                        <div class="fs-15 bg-white p-15px lg-ps-10px lg-pe-10px lh-initial"><span class="d-inline-block">{{ $firstTwo }}</div>
+                                        <a href="{{ route('users.servicedetails', $service->slug) }}" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Read More</a>
                                     </figcaption>
                                 </figure>
                             </div>
