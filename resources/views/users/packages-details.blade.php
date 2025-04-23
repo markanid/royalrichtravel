@@ -1,4 +1,4 @@
-﻿<x-userlayout :services="$services" :contact="$contact">
+﻿<x-userlayout>
     <!-- end header -->
     <!-- start page title -->
     <section class="page-title-button-style cover-background position-relative ipad-top-space-margin top-space-padding md-pt-20px" style="background-image: url('{{asset('images/banner/packages.jpg')}}')">
@@ -50,7 +50,8 @@
                     <div class="position-sticky top-70px">
                         <div class="bg-very-light-gray contact-form-style-03 position-relative overflow-hidden p-40px lg-p-30px mb-30px">
                             <h5 class="alt-font text-dark-gray fw-600 mb-10px text-center">Book this tour</h5>
-                            <form action="email-templates/contact-form.php" method="post">
+                            <form action="{{ route('send.email') }}" method="post" enctype="multipart/form-data">
+                                @csrf
                                 <div class="position-relative form-group mb-5px">
                                     <span class="form-icon"><i class="bi bi-emoji-smile icon-small"></i></span>
                                     <input class="ps-0 border-radius-0px border-color-transparent-dark-very-light bg-transparent form-control required" name="name" type="text" placeholder="Your name*" />
@@ -62,11 +63,23 @@
                                 <div class="position-relative form-group form-textarea mb-0"> 
                                     <textarea class="ps-0 border-radius-0px border-bottom border-color-transparent-dark-very-light bg-transparent form-control" name="comment" placeholder="Your message" rows="2"></textarea>
                                     <span class="form-icon"><i class="bi bi-chat-square-dots icon-small"></i></span>
-                                    <input type="hidden" name="redirect" value="">
-                                    <button class="btn btn-medium btn-dark-gray btn-round-edge btn-box-shadow mt-25px w-100 submit" type="submit" aria-label="submit">Send message</button>
+                                    <input type="hidden" name="phone" value="{{ $package->location }}">
+                                    <input type="hidden" name="source" value="package">
+                                    <button class="btn btn-medium btn-dark-gray btn-round-edge btn-box-shadow mt-25px w-100" type="submit" aria-label="submit">Send message</button>
                                     <div class="form-results mt-20px d-none"></div>
                                 </div>
                             </form>
+                            @if(session('success_message'))
+                                <div class="alert alert-success">
+                                    {{ session('success_message') }}
+                                </div>
+                            @endif
+
+                            @if(session('error_message'))
+                                <div class="alert alert-danger">
+                                    {{ session('error_message') }}
+                                </div>
+                            @endif
                             <img src="{{asset('images/royal-rich-tour-package.jpg')}}" class="position-absolute top-0px right-0px" alt="Top Tour Operator in india" />
                         </div>
                         

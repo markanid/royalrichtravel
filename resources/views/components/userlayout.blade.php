@@ -1,12 +1,21 @@
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
-        <title>Royal Rich Air Travel Services Pvt Ltd</title>
+        <title>{{ $metadata->title }}</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="author" content="ThemeZaa">
+        <meta name="author" content="Apex Soft Labs">
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <meta name="description" content="Elevate your online presence with Crafto - a modern, versatile, multipurpose Bootstrap 5 responsive HTML5, SCSS template using highly creative 52+ ready demos.">
+        <meta name="description" content="{{ $metadata->desciption }}">
+        <meta name="keywords" content="{{ $metadata->keyword }}">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="{{ url()->current() }}" />
+        
+        <meta property="og:title" content="{{ $metadata->title }}" />
+        <meta property="og:description" content="{{ $metadata->desciption }}" />
+        <meta property="og:image" content="{{ asset('storage/meta_datas/'.$metadata->og_image) }}" />
+        <meta property="og:url" content="{{ url()->current() }}" />
+        <meta property="og:type" content="website" />
         <!-- favicon icon -->
         <link rel="shortcut icon" href="{{asset('images/logo/favicon.png')}}">
         <link rel="apple-touch-icon" href="{{asset('images/logo/favicon.png')}}">

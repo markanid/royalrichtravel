@@ -1,4 +1,4 @@
-﻿<x-userlayout :services="$services" :contact="$contact">
+﻿<x-userlayout>
     <!-- end header -->
     <!-- start page title -->
     <section class="page-title-button-style cover-background position-relative ipad-top-space-margin top-space-padding md-pt-20px" style="background-image: url('{{asset('images/banner/contact.jpg')}}')">
@@ -62,7 +62,7 @@
                                 <div class="position-relative form-group form-textarea mt-15px mb-10px xs-mb-0"> 
                                     <textarea class="ps-0 border-radius-0px border-bottom border-color-extra-medium-gray form-control" name="comment" placeholder="Describe about your tour" rows="3"></textarea>
                                     <span class="form-icon"><i class="bi bi-chat-square-dots"></i></span>
-                                    {{-- <input type="hidden" name="redirect" value=""> --}}
+                                    <input type="hidden" name="source" value="contact">
                                     <button class="btn btn-medium btn-dark-gray btn-box-shadow btn-round-edge mt-30px" type="submit" aria-label="submit">Send message</button>
                                     <div class="form-results mt-20px d-none"></div>
                                 </div>

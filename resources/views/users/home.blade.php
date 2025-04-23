@@ -1,4 +1,4 @@
-﻿<x-userlayout :services="$services" :contact="$contact">
+﻿<x-userlayout>
     <!-- end header -->
         <!-- start section -->
         <style>

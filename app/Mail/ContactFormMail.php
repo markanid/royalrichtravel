@@ -25,7 +25,12 @@ class ContactFormMail extends Mailable
 
     public function build()
     {
-        return $this->subject('New Contact Form Submission')
+        $subject = match ($this->data['source']) {
+            'service'   => 'Service Enquiry',
+            'package'   => 'Package Enquiry',
+            default     => 'Website Enquiry',
+        };
+        return $this->subject($subject)
                     ->view('emails.contact_form_submission');
     }
 }

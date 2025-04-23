@@ -46,11 +46,8 @@ class LoginController extends Controller
     }
 
     public function dashboard(){
-        $features   = Feature::count();
-        $packages   = Package::count();
-        $services   = Service::count();
-        $title      = 'Dashboard';
-        return view('admin.dashboard', compact('features','packages','services','title'));
+        $data['title']      = 'Dashboard';
+        return view('admin.dashboard', $data);
     }
 
     public function registerProcess(Request $request){
