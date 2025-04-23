@@ -54,7 +54,7 @@ class PackageController extends Controller
             $validated['image'] = $filename; // Save filename to database
         }
 
-        $slug = Str::slug($request->name, '-');
+        $slug = Str::slug($request->location, '-');
         $validated['slug']  = $slug;
 
         $package = Package::updateOrCreate(

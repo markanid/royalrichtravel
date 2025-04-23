@@ -1,6 +1,15 @@
 ﻿<x-userlayout :services="$services" :contact="$contact">
     <!-- end header -->
         <!-- start section -->
+        <style>
+            .description-clamp span {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                height: 36px; /* adjust based on your line height */
+            }
+        </style>
         <section class="p-0 bg-dark-gray">
             <article class="content">
                 <div id="travel-agency_wrapper" class="rev_slider_wrapper fullscreen-container">
@@ -8,25 +17,26 @@
                     <div id="travel-agency-slider" class="rev_slider fullscreenbanner" data-version="5.4.5" >
                         <!-- BEGIN SLIDES LIST -->
                         <ul>
-                            @foreach ($banners as $banner)
-                            <!-- MINIMUM SLIDE STRUCTURE -->
-                            
-                            <li id="rs-travel-agency-01" data-index="rs-travel-agency-01" data-transition="slidehorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="0" data-fsslotamount="2" data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10='{"revslider-weather-addon":{"type":"name","name":"Cologne","woeid":"667931","unit":"c"}}' data-description="" >
-                                <!-- SLIDE'S MAIN BACKGROUND IMAGE -->
-                                 @php
-                                        $images = is_array($banner->banner) ? $banner->banner : json_decode($banner->banner ?? '[]', true);
-                                    @endphp
-
-                                    @foreach ($images as $image)
-                                        
-                                            <img src="{{ asset('storage/banners/' . $image) }}" alt="Leading Travel Agency in Palakkad" class="rev-slidebg">
-                                        
-                                    @endforeach
-                                {{-- <img src="{{asset('images/banner/slider2.jpg')}}" alt="Leading Travel Agency in Palakkad" class="rev-slidebg"> --}}
+                            @if ($banners->isNotEmpty()) 
+                                @foreach ($banners as $banner)
+                                <!-- MINIMUM SLIDE STRUCTURE -->
                                 
-                            </li>
-                            @endforeach
-                                
+                                <li id="rs-travel-agency-01" data-index="rs-travel-agency-01" data-transition="slidehorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="0" data-fsslotamount="2" data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10='{"revslider-weather-addon":{"type":"name","name":"Cologne","woeid":"667931","unit":"c"}}' data-description="" >
+                                    <!-- SLIDE'S MAIN BACKGROUND IMAGE -->
+                                     @php
+                                            $images = is_array($banner->banner) ? $banner->banner : json_decode($banner->banner ?? '[]', true);
+                                        @endphp
+    
+                                        @foreach ($images as $image)
+                                            
+                                                <img src="{{ asset('storage/banners/' . $image) }}" alt="Leading Travel Agency in Palakkad" class="rev-slidebg">
+                                            
+                                        @endforeach
+                                    {{-- <img src="{{asset('images/banner/slider2.jpg')}}" alt="Leading Travel Agency in Palakkad" class="rev-slidebg"> --}}
+                                    
+                                </li>
+                                @endforeach
+                            @endif    
                             </li>
                         </ul>
                     </div>
@@ -52,23 +62,25 @@
                         </div>
                     </div>
                     <div class="col-lg-1 col-md-2 d-none d-md-inline-block"><div class="divider-dot d-flex align-items-center w-100 h-200px"></div></div>
-                    <div class="col-lg-5 col-md-9 offset-md-1" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 800, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                        <h1 class="alt-font fw-600 text-dark-gray ls-minus-3px w-90 xl-w-100 mb-30px">{{ $about['welcome'] }}.</h1>
-                        <p class="w-75 lg-w-100">
-                            @php
-                                $sentences = preg_split('/(?<=[.?!])\s+/', $about->glimbse);
-                                $firstFour = implode(' ', array_slice($sentences, 0, 4));
-                            @endphp
-                            {{ $about->glimbse }}
-                            </p> 
-                        <div class="d-inline-block mt-5px"> 
-                            <a href="{{ route('users.aboutus') }}" class="btn btn-large btn-round-edge btn-dark-gray btn-hover-animation btn-box-shadow me-25px">
-                                <span> 
-                                    <span class="btn-text">About company</span><span class="btn-icon"><i class="feather icon-feather-feather"></i></span> 
-                                </span>
-                            </a>
-                        </div>
-                    </div> 
+                    @if(!empty($about) && !empty($about['welcome']) && !empty($about->glimbse))
+                        <div class="col-lg-5 col-md-9 offset-md-1" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 800, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+                            <h1 class="alt-font fw-600 text-dark-gray ls-minus-3px w-90 xl-w-100 mb-30px">{{ $about['welcome'] }}.</h1>
+                            <p class="w-75 lg-w-100">
+                                @php
+                                    $sentences = preg_split('/(?<=[.?!])\s+/', $about->glimbse);
+                                    $firstFour = implode(' ', array_slice($sentences, 0, 4));
+                                @endphp
+                                {{ $about->glimbse }}
+                                </p> 
+                            <div class="d-inline-block mt-5px"> 
+                                <a href="{{ route('users.aboutus') }}" class="btn btn-large btn-round-edge btn-dark-gray btn-hover-animation btn-box-shadow me-25px">
+                                    <span> 
+                                        <span class="btn-text">About company</span><span class="btn-icon"><i class="feather icon-feather-feather"></i></span> 
+                                    </span>
+                                </a>
+                            </div>
+                        </div> 
+                    @endif    
                     <div class="col-lg-4 col-md-8 position-relative offset-lg-1 offset-md-4 ps-0 sm-ps-15px md-mt-50px" data-anime='{ "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'> 
                         <img src="{{asset('images/royal-rich-home-about.jpg')}}" class="border-radius-6px md-w-100" alt="Top Travel Agency in Kerala">  
                         <img class="position-absolute left-minus-120px top-80px sm-top-0px sm-w-160px sm-left-0px" src="images/royal-rich-travel-since-2006.png" alt="Royal Rich Travels Since 2008" data-bottom-top="transform: translateY(50px)" data-top-bottom="transform: translateY(-50px)"> 
@@ -76,18 +88,20 @@
                 </div>  
                 <div class="row row-cols-1 row-cols-lg-4 row-cols-sm-2 justify-content-center" data-anime='{ "el": "childs", "rotateZ": [5, 0], "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
                     <!-- start features box item -->
-                    @foreach ($features as $feature)
-                        <div class="col icon-with-text-style-01 md-mb-30px">
-                            <div class="feature-box feature-box-left-icon-middle last-paragraph-no-margin">
-                                <div class="feature-box-icon">
-                                    <i class="line-icon-Medal-2 icon-large text-base-color"></i>
-                                </div>
-                                <div class="feature-box-content">
-                                    <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">{{ $feature['name'] }}</span>
+                    @if ($features->isNotEmpty()) 
+                        @foreach ($features as $feature)
+                            <div class="col icon-with-text-style-01 md-mb-30px">
+                                <div class="feature-box feature-box-left-icon-middle last-paragraph-no-margin">
+                                    <div class="feature-box-icon">
+                                        <i class="line-icon-Medal-2 icon-large text-base-color"></i>
+                                    </div>
+                                    <div class="feature-box-content">
+                                        <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">{{ $feature['name'] }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @endif
                     <!-- end features box item -->
                 </div>
             </div>
@@ -107,25 +121,28 @@
                         <div class="swiper slider-four-slide swiper-number-navigation-style" data-slider-options='{ "slidesPerView": 1, "spaceBetween": 30, "loop": true, "pagination": { "el": ".swiper-pagination", "clickable": true }, "autoplay": { "delay": 4000, "disableOnInteraction": false }, "navigation": { "nextEl": ".slider-four-slide-next", "prevEl": ".slider-four-slide-prev" }, "keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1400": { "slidesPerView": 4 }, "1200": { "slidesPerView": 3 }, "992": { "slidesPerView": 3 }, "576": { "slidesPerView": 2 } }, "effect": "slide" }' data-swiper-number-navigation="true" data-swiper-show-progress="true">
                             <div class="swiper-wrapper pb-5 md-pb-6">
                                 <!-- start content carousal item -->
-                                @foreach ($services as $service)
-                                <div class="swiper-slide">
-                                    <div class="overflow-hidden border-radius-6px box-shadow-large">
-                                        <div class="image">
-                                            <img class="w-100" src="{{ asset('storage/services/'.$service->image) }}" alt="{{ $service->name }}" style="height: 500px; width: 250px;">
-                                        </div> 
-                                        @php
-                                            $sentences = preg_split('/(?<=[.?!])\s+/', $service->description);
-                                            $firstTwo = implode(' ', array_slice($sentences, 0, 2));
-                                        @endphp
-                                        <div class="bg-white p-35px position-relative">
-                                            <div class="alt-font fw-600 text-dark-gray" style="font-size:25px;">{{ $service->name }}</div>
-                                            <div class="fs-24 fw-700 text-dark-gray"><span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">{{ $firstTwo }}</span></div>
-                                            <a href="{{ route('users.servicedetails', $service->slug) }}" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Read More</a>
-                                            
+                                
+                                @if ($services->isNotEmpty())  
+                                    @foreach ($services as $service)
+                                        <div class="swiper-slide">
+                                            <div class="overflow-hidden border-radius-6px box-shadow-large">
+                                                <div class="image">
+                                                    <img class="w-100" src="{{ asset('storage/services/'.$service->image) }}" alt="{{ $service->name }}" style="height: 500px; width: 250px;">
+                                                </div> 
+                                                @php
+                                                    $sentences = preg_split('/(?<=[.?!])\s+/', $service->description);
+                                                    $firstTwo = implode(' ', array_slice($sentences, 0, 2));
+                                                @endphp
+                                                <div class="bg-white p-35px position-relative">
+                                                    <div class="alt-font fw-600 text-dark-gray" style="font-size:25px;">{{ $service->name }}</div>
+                                                    <div class="fs-24 fw-700 text-dark-gray description-clamp"><span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">{{ $firstTwo }}</span></div>
+                                                    <a href="{{ route('users.servicedetails', $service->slug) }}" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Read More</a>
+                                                    
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                @endforeach
+                                    @endforeach
+                                @endif    
                                 <!-- end content carousal item -->
                             </div>
                             <!-- start slider pagination -->
@@ -204,31 +221,33 @@
                         <div class="swiper position-relative" data-slider-options='{ "autoHeight": true, "loop": true, "allowTouchMove": true, "autoplay": { "delay": 3000, "disableOnInteraction": false }, "navigation": { "nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev" }, "effect": "slide" }'>
                             <div class="swiper-wrapper">
                                 <!-- start text slider item -->
-                                 @foreach ($packages as $package)
-                                @php
-                                    $packages = preg_split('/(?<=[.?!])\s+/', $package->description);
-                                    $firstSentence = implode(' ', array_slice($packages, 0, 2));
-                                @endphp
-                                <div class="swiper-slide review-style-11">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-5 text-center text-md-start sm-mb-15px">
-                                            <img src="{{ asset('storage/packages/'.$package->image) }}" alt="{{ $package->name }}">
-                                        </div> 
-                                        <div class="col-md-7 position-relative ps-16 sm-ps-15px text-center text-md-start">
-                                            
-                                            <p class="fs-20 lh-28 text-dark-gray mb-20px">
-                                                {{ $firstSentence }}</p>
-                                            <a href="{{ route('users.packagedetails', ['id' => $package->id]) }}">More Details</a>
-                                            
-                                            <div class="position-absolute left-0px top-0px h-100 w-90px sm-w-100 border-end border-color-transparent-dark-very-light sm-position-relative sm-mt-10px sm-border-end-0">
-                                                <div class="vertical-title-center align-items-center justify-content-center sm-vertical-title-inherit">
-                                                    <div class="title fs-20 alt-font text-base-color fw-600 text-uppercase"> {{ $package->name }}</div>
+                                @if ($packages->isNotEmpty()) 
+                                    @foreach ($packages as $package)
+                                        @php
+                                            $packages = preg_split('/(?<=[.?!])\s+/', $package->description);
+                                            $firstSentence = implode(' ', array_slice($packages, 0, 2));
+                                        @endphp
+                                        <div class="swiper-slide review-style-11">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-5 text-center text-md-start sm-mb-15px">
+                                                    <img src="{{ asset('storage/packages/'.$package->image) }}" alt="{{ $package->name }}">
+                                                </div> 
+                                                <div class="col-md-7 position-relative ps-16 sm-ps-15px text-center text-md-start">
+                                                    
+                                                    <p class="fs-20 lh-28 text-dark-gray mb-20px">
+                                                        {{ $firstSentence }}</p>
+                                                    <a href="{{ route('users.packagedetails', $package->slug) }}">More Details</a>
+                                                    
+                                                    <div class="position-absolute left-0px top-0px h-100 w-90px sm-w-100 border-end border-color-transparent-dark-very-light sm-position-relative sm-mt-10px sm-border-end-0">
+                                                        <div class="vertical-title-center align-items-center justify-content-center sm-vertical-title-inherit">
+                                                            <div class="title fs-20 alt-font text-base-color fw-600 text-uppercase"> {{ $package->name }}</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </div> 
                                         </div>
-                                    </div> 
-                                </div>
-                                @endforeach
+                                    @endforeach
+                                @endif
                                 <!-- end text slider item -->
                             </div> 
                         </div>

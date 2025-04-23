@@ -11,7 +11,8 @@ Route::get('services',[UserPageController::class,'service'])->name('users.servic
 // Route::get('/servicedetails',[UserPageController::class,'servicedetails'])->name('users.servicedetails'); 
 Route::get("/servicedetails/{slug}", [UserPageController::class, 'servicedetails'])->where('slug', '[A-Za-z0-9\-]+')->name('users.servicedetails');
 Route::get('packages',[UserPageController::class,'package'])->name('users.packages'); 
-Route::get('/packagedetails/{id}',[UserPageController::class,'packagedetails'])->name('users.packagedetails'); 
+// Route::get('/packagedetails/{id}',[UserPageController::class,'packagedetails'])->name('users.packagedetails'); 
+Route::get("/packagedetails/{slug}", [UserPageController::class, 'packagedetails'])->where('slug', '[A-Za-z0-9\-]+')->name('users.packagedetails');
 Route::get('contactus',[UserPageController::class,'contact'])->name('users.contactus'); 
 Route::post('/send-email', [UserPageController::class, 'sendEmail'])->name('send.email');
 

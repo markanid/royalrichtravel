@@ -23,30 +23,32 @@
                     <ul class="blog-modern blog-wrapper grid-loading grid grid-3col xl-grid-3col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-extra-large" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
                         <li class="grid-sizer"></li>
                         <!-- start blog item -->
-                        @foreach ($services as $service)
-                        <li class="grid-item mb-40px sm-mb-20px">
-                            <div class="box-hover text-center">
-                                <figure class="mb-0 position-relative">
-                                    <div class="blog-image position-relative overflow-hidden border-radius-6px">
-                                            <img src="{{ asset('storage/services/'.$service->image) }}" alt="" style="height: 500px; width: 100%; object-fit: cover;"/>
-                                        </a>
+                        @if ($services->isNotEmpty())  
+                            @foreach ($services as $service)
+                                <li class="grid-item mb-40px sm-mb-20px">
+                                    <div class="box-hover text-center">
+                                        <figure class="mb-0 position-relative">
+                                            <div class="blog-image position-relative overflow-hidden border-radius-6px">
+                                                    <img src="{{ asset('storage/services/'.$service->image) }}" alt="" style="height: 500px; width: 100%; object-fit: cover;"/>
+                                                </a>
+                                            </div>
+                                            <figcaption class="post-content-wrapper overflow-hidden border-radius-6px">
+                                                <div class="position-relative bg-dark-gray post-content p-30px z-index-2 lh-initial"> 
+                                                    <a class="card-title mb-0 fs-20 lh-28 text-white d-inline-block">{{ $service->name }}</a>
+                                                    <div class="box-overlay bg-dark-gray z-index-minus-1"></div>
+                                                </div>
+                                                @php
+                                                    $sentences = preg_split('/(?<=[.?!])\s+/', $service->description);
+                                                    $firstTwo = implode(' ', array_slice($sentences, 0, 2));
+                                                @endphp
+                                                <div class="fs-15 bg-white p-15px lg-ps-10px lg-pe-10px lh-initial"><span class="d-inline-block">{{ $firstTwo }}</div>
+                                                <a href="{{ route('users.servicedetails', $service->slug) }}" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Read More</a>
+                                            </figcaption>
+                                        </figure>
                                     </div>
-                                    <figcaption class="post-content-wrapper overflow-hidden border-radius-6px">
-                                        <div class="position-relative bg-dark-gray post-content p-30px z-index-2 lh-initial"> 
-                                            <a class="card-title mb-0 fs-20 lh-28 text-white d-inline-block">{{ $service->name }}</a>
-                                            <div class="box-overlay bg-dark-gray z-index-minus-1"></div>
-                                        </div>
-                                        @php
-                                            $sentences = preg_split('/(?<=[.?!])\s+/', $service->description);
-                                            $firstTwo = implode(' ', array_slice($sentences, 0, 2));
-                                        @endphp
-                                        <div class="fs-15 bg-white p-15px lg-ps-10px lg-pe-10px lh-initial"><span class="d-inline-block">{{ $firstTwo }}</div>
-                                        <a href="{{ route('users.servicedetails', $service->slug) }}" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">Read More</a>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                        </li>
-                        @endforeach
+                                </li>
+                            @endforeach
+                        @endif
                         <!-- end blog item -->
                     </ul>
                     <div class="row">

@@ -23,7 +23,9 @@
                             <div class="atropos-scale">
                                 <div class="atropos-rotate">
                                     <div class="atropos-inner">
-                                        <img data-atropos-offset="5" src="{{asset('storage/abouts/'.$about->image)}}" alt="">  
+                                        @if(!empty($about) && !empty($about->image))
+                                            <img data-atropos-offset="5" src="{{ asset('storage/abouts/' . $about->image) }}" alt="About Image">
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +34,8 @@
                     </div>
                     <div class="col-xl-5 offset-xl-1 col-lg-6 text-center text-lg-start">
                         <h1 class="alt-font fw-600 text-dark-gray ls-minus-2px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay":0, "staggervalue": 100, "easing": "easeOutQuad" }'>Our Journey</h1>
-                        <p class="w-85 md-w-100" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay":100, "staggervalue": 100, "easing": "easeOutQuad" }'>{{ $about->our_journey }}.</p>
+                        <p class="w-85 md-w-100" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay":100, "staggervalue": 100, "easing": "easeOutQuad" }'>
+                            {{ !empty($about) && !empty($about->our_journey) ? $about->our_journey : 'Journey details coming soon.' }}.</p>
                         <div class="d-inline-block mt-10px" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 800, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'> 
                             
                             
@@ -52,7 +55,9 @@
                                 <h4 class="alt-font fw-600 text-dark-gray ls-minus-2px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay":0, "staggervalue": 100, "easing": "easeOutQuad" }'>Our Vision</h4>
                             </div>
                             <div class="border-top border-1 border-color-extra-medium-gray p-15px last-paragraph-no-margin">
-                                <p class="text-dark-gray fw-500">{{ $about->vision }}</p>
+                                <p class="text-dark-gray fw-500">
+                                    {{ !empty($about) && !empty($about->vision) ? $about->vision : 'Our vision statement will be updated soon.' }}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -62,7 +67,8 @@
                                 <h4 class="alt-font fw-600 text-dark-gray ls-minus-2px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay":0, "staggervalue": 100, "easing": "easeOutQuad" }'>Our Mission</h4>
                             </div>
                             <div class="border-top border-1 border-color-extra-medium-gray p-15px last-paragraph-no-margin">
-                                <p class="text-dark-gray fw-500">{{ $about->mission }}</p>
+                                <p class="text-dark-gray fw-500">
+                                    {{ !empty($about) && !empty($about->mission) ? $about->mission : 'Our mission statement is coming soon.' }}</p>
                             </div>
                         </div>
                     </div>
@@ -72,7 +78,9 @@
                                 <h4 class="alt-font fw-600 text-dark-gray ls-minus-2px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay":0, "staggervalue": 100, "easing": "easeOutQuad" }'>Our Values</h4>
                             </div>
                             <div class="border-top border-1 border-color-extra-medium-gray p-15px last-paragraph-no-margin">
-                                <p class="text-dark-gray fw-500">{{ $about->our_values }}</p>
+                                <p class="text-dark-gray fw-500">
+                                    {{ !empty($about) && !empty($about->our_values) ? $about->our_values : 'Our core values will be shared soon.' }}
+                                </p>
                             </div>
                         </div>
                     </div>

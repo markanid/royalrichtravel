@@ -45,7 +45,7 @@
                             @foreach($packages as $row)
                                 <tr>
                                     <td>{{$i++;}}</td>
-                                    <td><a href={{ route('packages.show', $row->id) }}>{{ $row->name }}</a></td>
+                                    <td><a href={{ route('packages.show', $row->slug) }}>{{ $row->name }}</a></td>
                                     <td>{{$row->location}}</td>
                                     <td> 
                                          <img src="{{ $row->image ? asset('storage/packages/' . $row->image) : asset('uploads/avatar.png') }}" width="100" height="70" alt="Package Image">

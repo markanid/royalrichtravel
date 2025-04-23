@@ -80,13 +80,15 @@
                                     <a href="{{ route('users.services') }}" class="nav-link">Services</a>
                                     <i class="fa-solid fa-angle-down dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        @foreach ($services as $ser)
-                                        <li>
-                                            <a href="{{ route('users.servicedetails', $ser->slug) }}">
-                                                <div class="submenu-icon-content">{{ $ser['name'] }}</div>
-                                            </a>
-                                        </li>
-                                        @endforeach
+                                        @if ($services->isNotEmpty())    
+                                            @foreach ($services as $ser)
+                                            <li>
+                                                <a href="{{ route('users.servicedetails', $ser->slug) }}">
+                                                    <div class="submenu-icon-content">{{ $ser['name'] }}</div>
+                                                </a>
+                                            </li>
+                                            @endforeach
+                                        @endif
                                     </ul>
                                 </li>
                                 <li class="nav-item"><a href="{{ route('users.packages') }}" class="nav-link">Packages</a></li>

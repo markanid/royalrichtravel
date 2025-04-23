@@ -47,30 +47,32 @@
         <div class="container overlap-gap-section">
             <div class="row row-cols-1 row-cols-xl-3 row-cols-lg-2 row-cols-md-2 justify-content-center" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
                 <!-- start content carousal item -->
-                @foreach ($packages as $package)
-                <div class="col mb-30px">
-                    <div class="overflow-hidden border-radius-6px box-shadow-large">
-                        <div class="image">
-                            <a href="demo-travel-agency-tour-details-page.html">
-                                <img class="w-100" src="{{ asset('storage/packages/'.$package['image']) }}" alt="">
-                            </a>
-                        </div> 
-                        <div class="bg-white p-40px md-p-30px position-relative">
-                            <div class="bg-base-color ps-15px pe-15px fs-14 text-uppercase fw-500 d-inline-block text-white position-absolute right-0px top-0px"><i class="feather icon-feather-map-pin me-5px"></i>{{ $package['location'] }}</div>
-                            <div class="fs-24 fw-700 text-dark-gray">{{ $package['name'] }}</div>
-                            @php
-                                $sentences = preg_split('/(?<=[.?!])\s+/',  $package['description']);
-                                $firstTwo = implode(' ', array_slice($sentences, 0, 1));
-                            @endphp
-                            <p class="m-0 lh-30">{{ $firstTwo }}</p>
-                            
-                            <div class="d-flex align-items-center pt-20px mt-25px border-top border-color-extra-medium-gray">
-                                <a href="{{ route('users.packagedetails',['id' => $package['id']]) }}" class="fw-600 text-dark-gray me-auto">More Details</a>
+                @if ($packages->isNotEmpty())  
+                    @foreach ($packages as $package)
+                        <div class="col mb-30px">
+                            <div class="overflow-hidden border-radius-6px box-shadow-large">
+                                <div class="image">
+                                    <a href="demo-travel-agency-tour-details-page.html">
+                                        <img class="w-100" src="{{ asset('storage/packages/'.$package['image']) }}" alt="">
+                                    </a>
+                                </div> 
+                                <div class="bg-white p-40px md-p-30px position-relative">
+                                    <div class="bg-base-color ps-15px pe-15px fs-14 text-uppercase fw-500 d-inline-block text-white position-absolute right-0px top-0px"><i class="feather icon-feather-map-pin me-5px"></i>{{ $package['location'] }}</div>
+                                    <div class="fs-24 fw-700 text-dark-gray">{{ $package['name'] }}</div>
+                                    @php
+                                        $sentences = preg_split('/(?<=[.?!])\s+/',  $package['description']);
+                                        $firstTwo = implode(' ', array_slice($sentences, 0, 1));
+                                    @endphp
+                                    <p class="m-0 lh-30">{{ $firstTwo }}</p>
+                                    
+                                    <div class="d-flex align-items-center pt-20px mt-25px border-top border-color-extra-medium-gray">
+                                        <a href="{{ route('users.packagedetails',$package->slug) }}" class="fw-600 text-dark-gray me-auto">More Details</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                @endforeach
+                    @endforeach
+                @endif
                 <!-- end content carousal item -->
             </div>
     </section>

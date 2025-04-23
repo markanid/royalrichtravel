@@ -64,10 +64,10 @@ class UserPageController extends Controller
         ]);
     }
 
-    public function packagedetails($id) {
+    public function packagedetails($slug) {
         return view("users.packages-details", [
             'services'  => Service::oldest('created_at')->get(),
-            'package'   => Package::findOrFail($id),
+            'package'   => Package::where('slug', $slug)->firstOrFail(),
             'contact'   => Contact::oldest('created_at')->first(),
         ]);
     }
