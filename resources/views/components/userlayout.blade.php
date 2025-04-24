@@ -1,19 +1,38 @@
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
-        <title>{{ $metadata->title }}</title>
+        @php
+            use Illuminate\Support\Str;
+            
+            $isServiceDetails = request()->routeIs('users.servicedetails');
+            $isPackageDetails = request()->routeIs('users.packagedetails');
+            $firstPart = Str::of($metadata->title)->before('|');
+
+            $item = $isServiceDetails && isset($service) ? $service : ($isPackageDetails && isset($package) ? $package : null);
+
+            if ($item) {
+                $pageTitle = trim($firstPart . ' | ' . ($item->name ?? ''));
+                $pageDescription = $item->description ?? '';
+                $pageImage = asset('storage/' . ($isServiceDetails ? 'services' : 'packages') . '/' . ($item->image ?? ''));
+            } else {
+                $pageTitle = $metadata->title;
+                $pageDescription = $metadata->desciption; 
+                $pageImage = asset('storage/meta_datas/' . $metadata->og_image);
+            }
+        @endphp
+        <title>{{ $pageTitle }}</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="author" content="Apex Soft Labs">
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <meta name="description" content="{{ $metadata->desciption }}">
+        <meta name="description" content="{{ $pageDescription }}">
         <meta name="keywords" content="{{ $metadata->keyword }}">
         <meta name="robots" content="index, follow">
         <link rel="canonical" href="{{ url()->current() }}" />
         
-        <meta property="og:title" content="{{ $metadata->title }}" />
-        <meta property="og:description" content="{{ $metadata->desciption }}" />
-        <meta property="og:image" content="{{ asset('storage/meta_datas/'.$metadata->og_image) }}" />
+        <meta property="og:title" content="{{ $pageTitle }}" />
+        <meta property="og:description" content="{{ $pageDescription }}" />
+        <meta property="og:image" content="{{ $pageImage }}" />
         <meta property="og:url" content="{{ url()->current() }}" />
         <meta property="og:type" content="website" />
         <!-- favicon icon -->

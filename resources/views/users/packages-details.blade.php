@@ -1,4 +1,4 @@
-﻿<x-userlayout>
+﻿<x-userlayout :package="$package">
     <!-- end header -->
     <!-- start page title -->
     <section class="page-title-button-style cover-background position-relative ipad-top-space-margin top-space-padding md-pt-20px" style="background-image: url('{{asset('images/banner/packages.jpg')}}')">
